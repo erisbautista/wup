@@ -75,7 +75,7 @@
 @endsection
 
 @section('footer')
-<button class="button w-5 text-center">
+<a class="button w-5 text-center" href="{{ route('violation')}}">
     back
-</button>
+</a>
 @endsection
