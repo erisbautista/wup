@@ -1,0 +1,37 @@
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    .table-body {
+        background-color: $color-white;
+
+        td {
+            border: solid 0.1rem $table-border;
+            padding: 0.5rem;
+            height: 2rem;
+        }
+    }
+
+    .table-header {
+        background-color: $table-header;
+        height: 2rem;
+
+        th {
+            border: solid 0.1rem $table-border;
+            padding: 0.5rem;
+        }
+    }
+}
+
+.table-wrapper {
+    max-height: 14.5rem;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.recent-table-wrapper {
+    max-height: 31.9rem;
+    overflow: hidden;
+    overflow-y: auto;
+}

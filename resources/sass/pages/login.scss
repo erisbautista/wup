@@ -1,0 +1,16 @@
+.login-form {
+    .form-group {
+        justify-content: left;
+        margin: 1rem 0;
+    }
+
+    .form-footer {
+        display: grid;
+        justify-content: flex-end;
+        justify-items: end;
+
+        .login {
+            margin-right: 2.5rem;
+        }
+    }
+}

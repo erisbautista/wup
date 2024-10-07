@@ -1,0 +1,109 @@
+.ncae-menu-content {
+    display: grid;
+    justify-content: end;
+    align-content: center;
+    height: 100%;
+
+    .quote {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        span {
+            font-family: inherit;
+            font-size: 3rem;
+        }
+    }
+}
+
+.ncae-test {
+    .question {
+        width: 40vw;
+
+        &-title {
+            display: block;
+            font-size: 2.5rem;
+        }
+
+        &-content {
+            display: block;
+            font-size: 2rem;
+        }
+
+        &-choices {
+            display: block;
+            span {
+                display: block;
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+    .footer {
+        display: flex;
+        justify-content: flex-end;
+
+        .result {
+            padding: 1rem;
+            font-weight: 600;
+        }
+    }
+}
+
+.ncae-result {
+    height: 40vh;
+    width: 30vw;
+
+    .result {
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        grid-template-rows: min-content 1fr min-content;
+        grid-gap: 1rem;
+
+        &-header {
+            grid-row: 2 / 4;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+
+            span {
+                font-size: 2rem;
+            }
+        }
+
+        &-header-text {
+            grid-column: 1 / 3;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        &-body {
+            display: grid;
+            align-content: center;
+            background-color: $bg-grey;
+            color: $input-color;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        &-footer {
+            display: grid;
+            justify-content: center;
+
+            .exit {
+                border: none;
+                background-color: $color-red;
+                font-weight: 600;
+                color: inherit;
+                font-size: 1.5rem;
+                padding: 1rem;
+                border-radius: 3rem;
+                text-transform: uppercase;
+                text-align: center;
+                box-shadow: 0 2rem 5rem rgba(#000, 0.2);
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -1,0 +1,92 @@
+.calendar-home {
+    display: grid;
+    grid-template-areas: 1fr 1fr;
+    height: 100%;
+    padding: 0.5rem;
+
+    .section {
+        display: grid;
+        grid-template-rows: min-content 1fr;
+
+        .heading {
+            background-color: $color-primary-dark;
+            padding: 0.5rem;
+            border-radius: 3rem;
+            font-family: inherit;
+            font-weight: 600;
+            text-transform: uppercase;
+            width: 16.5rem;
+            font-size: 1.3rem;
+            box-shadow: 0 2rem 5rem rgb(#000, 0.2);
+        }
+
+        .activity-wrapper {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+
+            .activity {
+                background-color: $color-primary-light;
+                margin: 1rem;
+                display: grid;
+                justify-content: center;
+                align-content: center;
+                min-width: 20rem;
+            }
+        }
+    }
+}
+
+.calendar-feedback {
+    height: 100%;
+
+    &-form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    &-header {
+        font-size: 1rem;
+        font-family: inherit;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &-body {
+        padding: 1.5rem;
+        width: 100%;
+        flex: 1;
+
+        .feedback-input {
+            background-color: $color-primary-light;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &-footer {
+        display: flex;
+        flex-direction: row-reverse;
+        padding-right: 1.5rem;
+
+        .feedback-submit {
+            text-transform: uppercase;
+            font-family: inherit;
+            font-weight: 700;
+            color: $color-white;
+            background-color: $color-primary-dark;
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 4rem;
+            border: none;
+            box-shadow: 0 2rem 5rem rgb(#000, 0.2);
+        }
+    }
+}
+
+#calendar {
+    background-color: $color-white;
+    color: $input-color;
+    padding: 1rem;
+}

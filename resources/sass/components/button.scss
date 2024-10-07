@@ -1,0 +1,26 @@
+.button {
+    border: none;
+    font-family: inherit;
+    color: inherit;
+    font-weight: 800;
+    background-color: $color-secondary;
+    padding: 1rem 1.5rem;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    border-radius: 4rem;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.btn-menu {
+    border: none;
+    background-color: $color-primary-dark;
+    font-weight: 600;
+    color: inherit;
+    font-size: 1.5rem;
+    padding: 1rem;
+    border-radius: 3rem;
+    text-transform: uppercase;
+    box-shadow: 0 2rem 5rem rgba(#000, 0.2);
+    cursor: pointer;
+}
