@@ -1,7 +1,10 @@
 .login-form {
     .form-group {
-        justify-content: left;
         margin: 1rem 0;
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        grid-gap: 0.5rem;
+        justify-items: end;
     }
 
     .form-footer {
