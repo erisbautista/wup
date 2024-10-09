@@ -18,10 +18,14 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('level');
+            $table->unsignedBigInteger('role_id');
             $table->string('username')->unique();
             $table->string('password');
             $table->timestamps();
+
+            $table->foreign('role_id')->references('id')->on('roles');
         });
+
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
