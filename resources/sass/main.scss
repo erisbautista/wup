@@ -4,15 +4,16 @@
 @import "base/utilities";
 @import "base/base";
 
-@import "layout/container.scss";
+@import "layout/container";
 
-@import "components/card.scss";
-@import "components/button.scss";
-@import "components/table.scss";
-@import "components/image.scss";
+@import "components/card";
+@import "components/button";
+@import "components/table";
+@import "components/image";
 
-@import "pages/login.scss";
-@import "pages/menu.scss";
-@import "pages/violation.scss";
-@import "pages/calendar.scss";
-@import "pages/ncae.scss";
+@import "pages/login";
+@import "pages/menu";
+@import "pages/violation";
+@import "pages/calendar";
+@import "pages/ncae";
+@import "pages/admin";

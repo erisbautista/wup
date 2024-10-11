@@ -10,6 +10,40 @@
     border-radius: 4rem;
     display: inline-block;
     cursor: pointer;
+    box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+}
+
+.button-edit {
+    border: none;
+    font-family: inherit;
+    color: inherit;
+    background-color: $color-secondary;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-radius: 3rem;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+}
+
+.button-delete {
+    border: none;
+    font-family: inherit;
+    color: white;
+    background-color: red;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-radius: 3rem;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 }
 
 .btn-menu {

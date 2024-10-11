@@ -16,6 +16,12 @@ body {
     height: 100vh;
 }
 
+select {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+}
+
 a {
     text-decoration: none;
 }

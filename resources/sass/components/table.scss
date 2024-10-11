@@ -2,6 +2,8 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
+    color: $input-color;
+    text-align: center;
 
     .table-body {
         background-color: $color-white;

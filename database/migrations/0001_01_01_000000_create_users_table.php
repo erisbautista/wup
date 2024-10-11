@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id()->primary();
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('email');
             $table->string('level');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('password');
             $table->timestamps();
 
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
 
         Schema::create('sessions', function (Blueprint $table) {

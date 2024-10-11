@@ -13,6 +13,8 @@
         "vite": "^5.0"
     },
     "dependencies": {
-        "fullcalendar": "^6.1.15"
+        "datatables.net-dt": "^2.1.8",
+        "fullcalendar": "^6.1.15",
+        "jquery-ui": "^1.14.0"
     }
 }

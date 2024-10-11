@@ -10,6 +10,10 @@
     width: 14rem;
 }
 
+.w-2 {
+    width: 10rem;
+}
+
 .mb-1 {
     margin-bottom: 0.5rem;
 }
@@ -46,8 +50,19 @@
     border: none;
     border-radius: 0.3rem;
     line-height: 1.5rem;
-    padding: 0.7rem 2rem;
+    padding: 0.25em 0.5em;
     margin-left: 0.5rem;
+}
+
+.input-select {
+    border: 1px solid var(--select-border);
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 2;
+    background-color: $input-background;
+    margin-left: 0.3rem;
 }
 
 .form-label {
@@ -116,7 +131,6 @@
 
 .violation-content {
     background: $bg-grey;
-    color: $input-color;
     border: none;
     padding: 1rem;
     border-radius: 0.5rem;
