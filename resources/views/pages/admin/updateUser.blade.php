@@ -5,7 +5,7 @@
 @section('admin-content')
     <div class="create-user">
         <div class="create-user-header">
-            <h1>Create new User</h1>
+            <h1>Update User {{$user->first_name . ' ' . $user->middle_name . ' ' . {{$user->last_name}}}}</h1>
         </div>
         <div class="create-user-body">
             <form action="{{route('update_user', $user->id)}}" method="POST" class="user-create-form">
@@ -73,7 +73,7 @@
                         <input type="email" id="parent_email" name="parent_email" value="{{$user->parent === null ? '' : $user->parent->email}}" class="form-input">
                     </div>
                 </div>
-                <button class="button w-2 text-center create-user-button" type="submit">Submit</button>
+                <button class="button w-2 text-center create-user-button" type="submit">Edit</button>
             </form>
         </div>
     </div>

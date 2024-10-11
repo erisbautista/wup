@@ -58,3 +58,9 @@
     box-shadow: 0 2rem 5rem rgba(#000, 0.2);
     cursor: pointer;
 }
+
+.action-button {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem;
+}

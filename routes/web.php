@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Users\UserController;
+use App\Http\Controllers\Violations\UserViolationController;
 use App\Http\Controllers\Violations\ViolationController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,22 +27,25 @@ Route::prefix('user')->group(function() {
     Route::delete('/{id}', [UserController::class, 'deleteUser'])->name('delete_user');
 });
 
+Route::prefix('violation')->group(function() {
+    Route::get('/', [ViolationController::class, 'index'])->name('create_violation_view');
+    Route::post('/', [ViolationController::class, 'createViolation'])->name('create_violation');
+});
+
 // ---------------------------------------------------------------- Admin routes ----------------------------------------------------------------
 Route::prefix('admin')->group(function () {
     Route::get('/user', [AdminController::class, 'getUsers'])->name('admin_user');
     Route::get('/activity', function() {
         return view('pages.admin.activity');
     })->name('admin_activity');
-    Route::get('/violation', function() {
-        return view('pages.admin.violation');
-    })->name('admin_violation');
+    Route::get('/violation', [AdminController::class, 'getViolations'])->name('admin_violation');
     Route::get('/history', function() {
         return view('pages.admin.history');
     })->name('admin_history');
 });
 
 // ---------------------------------------------------------------- Violation routes ----------------------------------------------------------------
-Route::prefix('violation')->group(function() {
+Route::prefix('user/violation')->group(function() {
     Route::get('/', function () {
         return view('pages.violation');
     })->name('violation');
@@ -51,7 +55,7 @@ Route::prefix('violation')->group(function() {
     Route::get('/record', function () {
         return view('pages.violations.record');
     })->name('violation_record');
-    Route::get('/analysis', [ViolationController::class, 'getViolationAnalysis'])->name('violation_analysis');
+    Route::get('/analysis', [UserViolationController::class, 'getViolationAnalysis'])->name('violation_analysis');
     Route::get('/recent', function () {
         return view('pages.violations.recent');
     })->name('violation_recent'); 

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Violation extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'id';
+
+    public $incrementing = true;
+
+    protected $fillable = [
+        'name',
+        'category_no'
+    ];
 }

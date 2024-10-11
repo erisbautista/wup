@@ -94,4 +94,5 @@ class UserController extends Controller
     {
         return array_filter($data, static function($var){return $var !== null;} );
     }
+    
 }

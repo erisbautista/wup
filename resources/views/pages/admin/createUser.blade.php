@@ -5,7 +5,7 @@
 @section('admin-content')
     <div class="create-user">
         <div class="create-user-header">
-            <h1>Create new User</h1>
+            <h1 class="text-uppercase">Create new User</h1>
         </div>
         <div class="create-user-body">
             <form action="/user" method="POST" class="user-create-form">
