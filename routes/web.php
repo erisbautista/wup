@@ -30,6 +30,9 @@ Route::prefix('user')->group(function() {
 Route::prefix('violation')->group(function() {
     Route::get('/', [ViolationController::class, 'index'])->name('create_violation_view');
     Route::post('/', [ViolationController::class, 'createViolation'])->name('create_violation');
+    Route::get('/{id}', [ViolationController::class, 'getViolationById'])->name('update_violation_view');
+    Route::put('/{id}', [ViolationController::class, 'updateViolation'])->name('update_violation');
+    Route::delete('/{id}', [ViolationController::class, 'deleteViolation'])->name('delete_violation');
 });
 
 // ---------------------------------------------------------------- Admin routes ----------------------------------------------------------------

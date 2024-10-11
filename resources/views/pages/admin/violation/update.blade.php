@@ -8,14 +8,16 @@
             <h1 class="text-uppercase">Update Violation</h1>
         </div>
         <div class="violation-create-body">
-            <form action="" class="violation-create-form">
+            <form action="{{route('update_violation', $violation->id)}}" method="POST" class="violation-create-form">
+                @csrf
+                @method('PUT')
                 <div class="form-group">
                     <label for="name" class="form-label">Violation Name</label>
-                    <input type="text" class="form-input" name="name" id="name">
+                    <input type="text" class="form-input" value="{{$violation->name}}" name="name" id="name">
                 </div>
                 <div class="form-group">
-                    <label for="name" class="form-label">Category No</label>
-                    <input type="text" class="form-input" name="name" id="name">
+                    <label for="category_no" class="form-label">Category No</label>
+                    <input type="text" class="form-input" value="{{$violation->category_no}}" name="category_no" id="category_no">
                 </div>
                 <div class="violation-create-form-footer">
                     <button class="button w-3 text-center">Edit</button>

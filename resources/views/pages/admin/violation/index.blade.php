@@ -44,7 +44,31 @@
             
         });
 
-        
+        $('#violation-admin-table').on('click', '#updateViolation', function () {
+            let id = $(this).data('id');
+            window.location.href = "/violation/" + id
+        });
     });
+    function deleteViolation(id)
+        {
+            var url = "{{ route('delete_violation', 'id') }}";
+            var token = document.getElementsByName("_token")[0].value;
+            url = url.replace('id', id);
+            $.ajax({
+                url: url,
+                method: 'DELETE',
+                data: {
+                        "id": id,
+                        "_method": 'DELETE',
+                        "_token": token,
+                },
+                dataType: 'JSON',
+                success: function ()
+                {
+                    Swal.fire('Success', 'Successfully deleted', 'sucess')
+                    window.location.reload()
+                }
+            });
+        }
     </script>
 @endsection

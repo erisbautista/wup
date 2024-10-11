@@ -36,4 +36,32 @@ class ViolationController extends Controller
         Alert::error('Error', $result['message']);
         return redirect()->back()->with($result); ;
     }
+
+    public function getViolationById($id)
+    {
+        $violation = $this->oViolationService->getViolationById($id);
+        
+        return view('pages.admin.violation.update', compact('violation'));
+    }
+
+    public function updateViolation(Request $request, $id)
+    {
+        $data = $this->removeToken($request->all());
+        $data = $this->removeMethod($data);
+
+        $result = $this->oViolationService->updateViolation($data, $id);
+
+        if ($result['status'] === true){
+            Alert::success('Success', $result['message']);
+            return redirect()->route('admin_violation');
+        }
+
+        Alert::error('Error', $result['message']);
+        return redirect()->back()->with($result); ;
+    }
+
+    public function deleteViolation($id)
+    {
+        return response()->json($this->oViolationService->deleteViolation($id));
+    }
 }
