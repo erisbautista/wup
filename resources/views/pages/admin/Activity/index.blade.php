@@ -1,11 +1,11 @@
 @extends('../../../layouts.admin')
 
-@section('title','Violations')
+@section('title','Activity')
 
 @section('admin-content')
     <div class="user">
         <div class="user-header">
-            <a href="{{ route('create_violation_view')}}" class="button w-2 text-center button-new">New</a>
+            <a href="{{ route('create_activity_view')}}" class="button w-2 text-center button-new">New</a>
         </div>
         <div class="user-body">
             <div class="user-table-wrapper">
@@ -14,8 +14,10 @@
                     <thead>
                         <tr class="table-header">
                             <th>#</th>
-                            <th>Violation Name</th>
-                            <th>Category No</th>
+                            <th>Description</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Created by</th>
                             <th>Created Date</th>
                             <th>Action</th>
                         </tr>
@@ -29,29 +31,31 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-        $('#violation-menu-item').css('background-color', '#62B485');
+        $('#activity-menu-item').css('background-color', '#62B485');
         $("#admin-table").DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('admin_violation') }}",
+            ajax: "{{ route('admin_activity') }}",
             columns: [
                 { data: 'id', "searchable":false },
-                { data: "name", name: "name" },
-                { data: "category_no", name: "category_no" },
+                { data: "description", name: "description" },
+                { data: "start_date", name: "start_date" },
+                { data: "end_date", name: "end_date" },
+                { data: "user_id", name: "user_id" },
                 { data: "created_at", name: "created_at" },
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             
         });
 
-        $('#admin-table').on('click', '#updateViolation', function () {
+        $('#admin-table').on('click', '#updateActivity', function () {
             let id = $(this).data('id');
-            window.location.href = "/violation/" + id
+            window.location.href = "/activity/" + id
         });
     });
-    function deleteViolation(id)
+    function deleteActivity(id)
         {
-            var url = "{{ route('delete_violation', 'id') }}";
+            var url = "{{ route('delete_activity', 'id') }}";
             var token = document.getElementsByName("_token")[0].value;
             url = url.replace('id', id);
             $.ajax({
@@ -65,7 +69,7 @@
                 dataType: 'JSON',
                 success: function ()
                 {
-                    Swal.fire('Success', 'Successfully deleted', 'sucess')
+                    swal('Success', 'Successfully deleted', 'sucess')
                     window.location.reload()
                 }
             });

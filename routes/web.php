@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Activity\ActivityController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Users\UserController;
@@ -18,7 +19,7 @@ Route::get('/home', function () {
     return view('pages.home');
 })->name('home');
 
-
+// ---------------------------------------------------------------- User CRUD routes ----------------------------------------------------------------
 Route::prefix('user')->group(function() {
     Route::get('/create', [UserController::class, 'index'])->name('create_user');
     Route::post('/', [UserController::class, 'createUser']);
@@ -27,6 +28,7 @@ Route::prefix('user')->group(function() {
     Route::delete('/{id}', [UserController::class, 'deleteUser'])->name('delete_user');
 });
 
+// ---------------------------------------------------------------- Violation CRUD routes ----------------------------------------------------------------
 Route::prefix('violation')->group(function() {
     Route::get('/', [ViolationController::class, 'index'])->name('create_violation_view');
     Route::post('/', [ViolationController::class, 'createViolation'])->name('create_violation');
@@ -35,16 +37,21 @@ Route::prefix('violation')->group(function() {
     Route::delete('/{id}', [ViolationController::class, 'deleteViolation'])->name('delete_violation');
 });
 
+// ---------------------------------------------------------------- Activity CRUD routes ----------------------------------------------------------------
+Route::prefix('activity')->group(function() {
+    Route::get('/', [ActivityController::class, 'index'])->name('create_activity_view');
+    Route::post('/', [ActivityController::class, 'createActivity'])->name('create_activity');
+    Route::get('/{id}', [ActivityController::class, 'getActivityById'])->name('update_activity_view');
+    Route::put('/{id}', [ActivityController::class, 'updateActivity'])->name('update_activity');
+    Route::delete('/{id}', [ActivityController::class, 'deleteActivity'])->name('delete_activity');
+});
+
 // ---------------------------------------------------------------- Admin routes ----------------------------------------------------------------
 Route::prefix('admin')->group(function () {
     Route::get('/user', [AdminController::class, 'getUsers'])->name('admin_user');
-    Route::get('/activity', function() {
-        return view('pages.admin.activity');
-    })->name('admin_activity');
+    Route::get('/activity', [AdminController::class, 'getActivities'])->name('admin_activity');
     Route::get('/violation', [AdminController::class, 'getViolations'])->name('admin_violation');
-    Route::get('/history', function() {
-        return view('pages.admin.history');
-    })->name('admin_history');
+    Route::get('/history', [AdminController::class, 'getHistories'])->name('admin_history');
 });
 
 // ---------------------------------------------------------------- Violation routes ----------------------------------------------------------------

@@ -34,7 +34,7 @@ class ViolationController extends Controller
         }
 
         Alert::error('Error', $result['message']);
-        return redirect()->back()->with($result); ;
+        return redirect()->back()->with($result);
     }
 
     public function getViolationById($id)

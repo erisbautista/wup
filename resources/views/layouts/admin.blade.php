@@ -9,10 +9,13 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
         <link  href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+        
         <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-        <script src="https://kit.fontawesome.com/7fafdc26fc.js" crossorigin="anonymous"></script>
+        @yield('style');
         @vite(['resources/sass/main.scss', 'resources/js/app.js'])
     </head>
     <body>

@@ -5,11 +5,11 @@
 @section('admin-content')
     <div class="user">
         <div class="user-header">
-            <a href="{{ route('create_user')}}" class="button w-3 text-center">New</a>
+            <a href="{{ route('create_user')}}" class="button w-2 text-center button-new">New</a>
         </div>
         <div class="user-body">
             <div class="user-table-wrapper">
-                <table class="table cell-border compact stripe" id="user-admin-table">
+                <table class="table cell-border compact stripe" id="admin-table">
                     @csrf
                     <thead>
                         <tr class="table-header">
@@ -33,7 +33,7 @@
 <script>
     $(document).ready(function () {
         $('#user-menu-item').css('background-color', '#62B485');
-        $("#user-admin-table").DataTable({
+        $("#admin-table").DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{ route('admin_user') }}",
@@ -50,7 +50,7 @@
             
         });
 
-        $('#user-admin-table').on('click', '#updateUser', function () {
+        $('#admin-table').on('click', '#updateUser', function () {
             let id = $(this).data('id');
             window.location.href = "/user/" + id
         });

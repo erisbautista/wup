@@ -14,7 +14,9 @@
     },
     "dependencies": {
         "datatables.net-dt": "^2.1.8",
+        "flatpickr": "^4.6.13",
         "fullcalendar": "^6.1.15",
-        "jquery-ui": "^1.14.0"
+        "jquery-ui": "^1.14.0",
+        "sweetalert": "^2.1.2"
     }
 }

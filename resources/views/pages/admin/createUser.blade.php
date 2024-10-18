@@ -14,27 +14,27 @@
                     <h1>User Information</h1>
                     <div class="form-group">
                         <label for="first_name" class="form-label">First Name</label>
-                        <input type="text" id="first_name" name="first_name" class="form-input">
+                        <input type="text" id="first_name" :onfocusout="trimInput()" name="first_name" class="form-input" placeholder="Enter first name">
                     </div>
                     <div class="form-group">
                         <label for="middle_name" class="form-label">Middle Name</label>
-                        <input type="text" id="middle_name" name="middle_name" class="form-input">
+                        <input type="text" id="middle_name" name="middle_name" class="form-input" placeholder="Enter middle name">
                     </div>
                     <div class="form-group">
                         <label for="last_name" class="form-label">Last Name</label>
-                        <input type="text" id="last_name" name="last_name" class="form-input">
+                        <input type="text" id="last_name" name="last_name" class="form-input" placeholder="Enter last name">
                     </div>
                     <div class="form-group">
                         <label for="level" class="form-label">Level</label>
-                        <input type="text" id="level" name="level" class="form-input">
+                        <input type="text" id="level" name="level" class="form-input" placeholder="Enter level">
                     </div>
                     <div class="form-group">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" name="email" class="form-input">
+                        <input type="email" id="email" name="email" class="form-input" placeholder="Enter email">
                     </div>
                     <div class="form-group">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" id="username" name="username" class="form-input">
+                        <input type="text" id="username" name="username" class="form-input" placeholder="Enter username">
                     </div>
                     <div class="form-group">
                         <label for="username" class="form-label">Role</label>
@@ -57,23 +57,73 @@
                     <h1>Parent Information</h1>
                     <div class="form-group">
                         <label for="first_name" class="form-label">First Name</label>
-                        <input type="text" id="parent_first_name" name="parent_first_name" class="form-input">
+                        <input type="text" id="parent_first_name" name="parent_first_name" class="form-input" placeholder="Enter first name">
                     </div>
                     <div class="form-group">
                         <label for="parent_middle_name" class="form-label">Middle Name</label>
-                        <input type="text" id="parent_middle_name" name="parent_middle_name" class="form-input">
+                        <input type="text" id="parent_middle_name" name="parent_middle_name" class="form-input" placeholder="Enter middle name">
                     </div>
                     <div class="form-group">
                         <label for="parent_last_name" class="form-label">Last Name</label>
-                        <input type="text" id="parent_last_name" name="parent_last_name" class="form-input">
+                        <input type="text" id="parent_last_name" name="parent_last_name" class="form-input" placeholder="Enter last name">
                     </div>
                     <div class="form-group">
                         <label for="parent_email" class="form-label">Email</label>
-                        <input type="email" id="parent_email" name="parent_email" class="form-input">
+                        <input type="email" id="parent_email" name="parent_email" class="form-input" placeholder="Enter email">
                     </div>
                 </div>
                 <button class="button w-2 text-center create-user-button" type="submit">Submit</button>
             </form>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#confirm_password').focusout(function() {
+                var confirm_password = $(this).val();
+                var password = $('#password').val();
+                if(password === '' || password === null) {
+                    return 0;
+                }
+
+                if(password === confirm_password) {
+                    return 0;
+                }
+                swal('Password Mismatch', '', 'error');
+                $(this).val('');
+            })
+            $('#password').focusout(function() {
+                var password = $(this).val();
+                var confirm_password = $('#confirm_password').val();
+                if(confirm_password === '' || confirm_password === null) {
+                    return 0;
+                }
+                if(password === confirm_password) {
+                    return 0;
+                }
+                swal('Password Mismatch', '', 'error');
+                $(this).val('');
+            })
+
+            $('.user-create-form').submit(function(event) {
+                var errors = 0;
+                $(".user-create-form input").map(function(){
+                    if( !$(this).val() ) {
+                        console.log($(this));
+                        $(this).addClass('warning');
+                        errors++;
+                    } else if ($(this).val()) {
+                        $(this).removeClass('warning');
+                    }   
+                });
+                console.log(errors);
+                if(errors > 0){
+                    swal('All fields is required', '', 'error');
+                    event.preventDefault();
+                }
+            })
+        })
+    </script>
 @endsection

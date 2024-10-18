@@ -46,25 +46,11 @@
     }
 }
 
-#user-admin-table_filter {
+#admin-table_filter {
     margin-bottom: 1rem;
 }
 
-#user-admin-table_length {
-    margin-bottom: 1rem;
-
-    select {
-        background-color: $color-white;
-        text-align: center;
-        border: solid 1px grey;
-    }
-}
-
-#violation-admin-table_filter {
-    margin-bottom: 1rem;
-}
-
-#violation-admin-table_length {
+#admin-table_length {
     margin-bottom: 1rem;
 
     select {
@@ -141,5 +127,11 @@
         &-footer {
             justify-self: center;
         }
+    }
+}
+
+#laravel-flatpickr-container {
+    input {
+        background-color: $input-background !important;
     }
 }

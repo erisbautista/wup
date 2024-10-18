@@ -13,10 +13,14 @@
     box-shadow: 0 2rem 5rem rgb(#000, 0.3);
 }
 
+.button-new {
+    padding: 0.3rem;
+}
+
 .button-edit {
     border: none;
     font-family: inherit;
-    color: inherit;
+    color: $color-white;
     background-color: $color-secondary;
     padding: 0.5rem;
     text-transform: uppercase;
@@ -30,7 +34,7 @@
 .button-delete {
     border: none;
     font-family: inherit;
-    color: white;
+    color: $color-white;
     background-color: red;
     padding: 0.5rem;
     text-transform: uppercase;

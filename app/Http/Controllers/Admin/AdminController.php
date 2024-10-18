@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -39,7 +40,6 @@ class AdminController extends Controller
         $title = 'Delete User!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        // Alert::success('test','Test Alert');
         return view('pages.admin.user');
     }
 
@@ -68,5 +68,43 @@ class AdminController extends Controller
         confirmDelete($title, $text);
         // Alert::success('test','Test Alert');
         return view('pages.admin.violation.index');
+    }
+
+    public function getHistories(Request $request) 
+    {
+        if ($request->ajax()) {
+            $history = $this->oAdminService->getHistories();
+            return datatables()->of($history)
+                    ->editColumn('created_at', function($data)
+                    { $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('Y-m-d H:i:s'); return $formatedDate; })
+                ->make(true);
+        }
+        return view('pages.admin.history');
+    }
+
+    public function getActivities(Request $request) 
+    {
+        if ($request->ajax()) {
+            $activities = $this->oAdminService->getActivities();
+
+            return datatables()->of($activities)
+                    ->addColumn('action', function($row){
+                                
+                        // Update Button
+                        $updateButton = '<button data-id="'.$row->id.'" id="updateActivity" class="button-edit">Edit</button>';
+                        // Delete Button
+                        $deleteButton = '<button class="button-delete"><a href="javascript: deleteActivity('.$row->id.')" data-confirm-delete="true">Delete</a></button>';
+                        return '<div class="action-button">'. $updateButton.$deleteButton . '</div>';
+                    })
+                    ->editColumn('user_id', function($data)
+                    { return $data['user']->first_name . ' ' . $data['user']->middle_name . ' ' . $data['user']->last_name; })
+                    ->editColumn('created_at', function($data)
+                    { $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('Y-m-d H:i:s'); return $formatedDate; })
+                ->make(true);
+        }
+        $title = 'Delete Activity!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+        return view('pages.admin.activity.index');
     }
 }

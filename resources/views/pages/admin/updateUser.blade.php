@@ -5,7 +5,7 @@
 @section('admin-content')
     <div class="create-user">
         <div class="create-user-header">
-            <h1>Update User {{$user->first_name . ' ' . $user->middle_name . ' ' . {{$user->last_name}}}}</h1>
+            <h1>Update User Information</h1>
         </div>
         <div class="create-user-body">
             <form action="{{route('update_user', $user->id)}}" method="POST" class="user-create-form">
