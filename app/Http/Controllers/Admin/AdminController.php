@@ -28,9 +28,10 @@ class AdminController extends Controller
 
                         // Update Button
                         $updateButton = '<button data-id="'.$row->id.'" id="updateUser" class="button-edit">Edit</button>';
+                        $changePasswordButton = '<button data-id="'.$row->id.'" id="changePassword" class="button-password-change">Change Password</button>';
                         // Delete Button
                         $deleteButton = '<button class="button-delete"><a href="javascript: deleteUser('.$row->id.')" data-confirm-delete="true">Delete</a></button>';
-                        return '<div class="action-button">'. $updateButton.$deleteButton . '</div>';
+                        return '<div class="action-button">'. $updateButton.$deleteButton.$changePasswordButton . '</div>';
                     })
                     ->editColumn('created_at', function($data)
                     { $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('Y-m-d H:i:s'); return $formatedDate; })
@@ -40,7 +41,7 @@ class AdminController extends Controller
         $title = 'Delete User!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        return view('pages.admin.user');
+        return view('pages.admin.user.index');
     }
 
     public function getViolations(Request $request) 

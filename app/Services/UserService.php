@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\ParentDetails;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserService {
 
@@ -34,6 +35,11 @@ class UserService {
     public function getUserById($id)
     {
         return User::where('id', $id)->with('parent')->first();
+    }
+
+    public function checkPassword($id)
+    {
+        return User::where('id', $id)->first();
     }
 
     public function updateUser($data, $id)

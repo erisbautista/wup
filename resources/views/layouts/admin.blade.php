@@ -21,7 +21,7 @@
     <body>
         <div class="container">
             <div class="header mb-4">
-                <img class="img-logo" src="../storage/logo.png" alt="Logo">
+                <img class="img-logo" src="../../storage/logo.png" alt="Logo">
             </div>
             <div class="admin-main">
                 <div class="side-nav">

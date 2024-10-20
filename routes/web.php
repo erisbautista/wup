@@ -26,6 +26,12 @@ Route::prefix('user')->group(function() {
     Route::get('/{id}', [UserController::class, 'getUserById']);
     Route::put('/{id}', [UserController::class, 'updateUser'])->name('update_user');
     Route::delete('/{id}', [UserController::class, 'deleteUser'])->name('delete_user');
+
+    Route::prefix('/password')->group(function() {
+        Route::get('/{id}', [UserController::class, 'passwordView'])->name('update_password_view');
+        Route::put('/{id}', [UserController::class, 'updatePassword'])->name('update_password');
+        Route::post('/check', [UserController::class, 'checkPassword'])->name('password_check');
+    });
 });
 
 // ---------------------------------------------------------------- Violation CRUD routes ----------------------------------------------------------------

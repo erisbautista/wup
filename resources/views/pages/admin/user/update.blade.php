@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" id="username" name="username" value="{{$user->first_name}}" class="form-input">
+                        <input type="text" id="username" name="username" readonly disabled value="{{$user->first_name}}" class="form-input">
                     </div>
                     <div class="form-group">
                         <label for="username" class="form-label">Role</label>
@@ -44,14 +44,6 @@
                             <option value="2">Student</option>
                             <option value="3">Teacher</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" id="password" name="password" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm_password" class="form-label">Confirm Password</label>
-                        <input type="password" id="confirm_password" name="confirm_password" class="form-input">
                     </div>
                 </div>
                 <div class="parent-details">
@@ -77,4 +69,54 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#confirm_password').focusout(function() {
+                var confirm_password = $(this).val();
+                var password = $('#password').val();
+                if(password === '' || password === null) {
+                    return 0;
+                }
+
+                if(password === confirm_password) {
+                    return 0;
+                }
+                swal('Password Mismatch', '', 'error');
+                $(this).val('');
+            })
+            $('#password').focusout(function() {
+                var password = $(this).val();
+                var confirm_password = $('#confirm_password').val();
+                if(confirm_password === '' || confirm_password === null) {
+                    return 0;
+                }
+                if(password === confirm_password) {
+                    return 0;
+                }
+                swal('Password Mismatch', '', 'error');
+                $(this).val('');
+            })
+
+            $('.user-create-form').submit(function(event) {
+                var errors = 0;
+                $(".user-create-form input").map(function(){
+                    if( !$(this).val() ) {
+                        console.log($(this));
+                        $(this).addClass('warning');
+                        errors++;
+                    } else if ($(this).val()) {
+                        $(this).removeClass('warning');
+                    }   
+                });
+                console.log(errors);
+                if(errors > 0){
+                    swal('All fields is required', '', 'error');
+                    event.preventDefault();
+                }
+            })
+        })
+    </script>
 @endsection

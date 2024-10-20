@@ -54,6 +54,10 @@
             let id = $(this).data('id');
             window.location.href = "/user/" + id
         });
+        $('#admin-table').on('click', '#changePassword', function () {
+            let id = $(this).data('id');
+            window.location.href = "/user/password/" + id
+        });
 
         
     });

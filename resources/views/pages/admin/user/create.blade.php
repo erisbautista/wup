@@ -84,7 +84,7 @@
             $('#confirm_password').focusout(function() {
                 var confirm_password = $(this).val();
                 var password = $('#password').val();
-                if(password === '' || password === null) {
+                if(password === '' || password === null || $(this).val() === null || $(this).val() === '') {
                     return 0;
                 }
 
@@ -97,7 +97,7 @@
             $('#password').focusout(function() {
                 var password = $(this).val();
                 var confirm_password = $('#confirm_password').val();
-                if(confirm_password === '' || confirm_password === null) {
+                if(confirm_password === '' || confirm_password === null || $(this).val() === null || $(this).val() === '') {
                     return 0;
                 }
                 if(password === confirm_password) {
