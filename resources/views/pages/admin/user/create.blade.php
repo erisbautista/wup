@@ -107,18 +107,44 @@
                 $(this).val('');
             })
 
+            $('#username').focusout(function() {
+                $(this).val($(this).val().trim());
+                if($(this).val() === null) {
+                    return 0;
+                }
+                var username = $(this).val();
+                var url = "{{ route('check_username') }}";
+                var token = document.getElementsByName("_token")[0].value;
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: {
+                            "_method": 'POST',
+                            "username": username,
+                            "_token": token,
+                    },
+                    dataType: 'JSON',
+                    success: function (data)
+                    {
+                        if (data['success'] !== true) {
+                            swal(data['message'], '', 'error');
+                            $('#username').val('')
+                        }
+                    }
+                });
+            });
+
             $('.user-create-form').submit(function(event) {
                 var errors = 0;
                 $(".user-create-form input").map(function(){
-                    if( !$(this).val() ) {
-                        console.log($(this));
+                    $(this).val($(this).val().trim());
+                    if( !$(this).val() || $(this).val() === null) {
                         $(this).addClass('warning');
                         errors++;
                     } else if ($(this).val()) {
                         $(this).removeClass('warning');
                     }   
                 });
-                console.log(errors);
                 if(errors > 0){
                     swal('All fields is required', '', 'error');
                     event.preventDefault();

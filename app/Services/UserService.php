@@ -42,6 +42,11 @@ class UserService {
         return User::where('id', $id)->first();
     }
 
+    public function checkUsername($username)
+    {
+        return User::where('username', $username)->count();
+    }
+
     public function updateUser($data, $id)
     {
         try{

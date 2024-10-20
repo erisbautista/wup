@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Mockery\Undefined;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -70,6 +71,17 @@ class UserController extends Controller
             return response()->json(['success' => true]);
         }
         return response()->json(['success' => false, 'message' => 'Incorrect password']);
+    }
+
+    public function checkUsername(Request $request)
+    {
+        $data = $this->removeToken($request->all());
+        $data = $this->removeMethod($data);
+        $count = $this->oUserService->checkUsername($request['username']);
+        if($count === 0) {
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false, 'message' => 'Username already taken']);
     }
 
     public function updateUser(Request $request, $id)

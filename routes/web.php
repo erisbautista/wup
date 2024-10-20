@@ -26,6 +26,7 @@ Route::prefix('user')->group(function() {
     Route::get('/{id}', [UserController::class, 'getUserById']);
     Route::put('/{id}', [UserController::class, 'updateUser'])->name('update_user');
     Route::delete('/{id}', [UserController::class, 'deleteUser'])->name('delete_user');
+    Route::post('username/check', [UserController::class, 'checkUsername'])->name('check_username');
 
     Route::prefix('/password')->group(function() {
         Route::get('/{id}', [UserController::class, 'passwordView'])->name('update_password_view');
