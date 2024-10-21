@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Activity;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ActivityService
@@ -71,5 +72,24 @@ class ActivityService
                 'message' => $e->getMessage()
             ];
         }
+    }
+
+    public function getActivitiesToday()
+    {
+        return Activity::whereDate('start_date', '<=', Carbon::now())->whereDate('end_date', '>=', Carbon::now())->get();
+    }
+
+    public function getUpcommingActivities()
+    {
+        return Activity::whereDate('start_date', '>', Carbon::now())->get();
+    }
+    public function getOngoingActivities()
+    {
+        return Activity::whereDate('start_date', '<=', Carbon::now())->whereDate('end_date', '>=', Carbon::now())->get();
+    }
+
+    public function getActivities()
+    {
+        return Activity::all();
     }
 }

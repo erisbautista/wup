@@ -12,7 +12,7 @@
 @endsection
 
 @section('footer')
-<a class="button w-5 text-center" href="{{ route('logout')}}">
-    Log out
+<a class="button w-5 text-center" href="{{ route('home')}}">
+    Main Menu
 </a>
 @endsection

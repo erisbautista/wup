@@ -11,5 +11,6 @@
         <a href="{{route('calendar')}}" class="btn-menu text-center">School calendar</a>
         <a href="{{route('ncae')}}" class="btn-menu text-center">ncae pre-test</a>
         <a href="{{route('violation')}}" class="btn-menu text-center">Student Violation tracker</a>
+        <a class="button text-center" href="{{ route('logout')}}">Log out</a>
     </div>
 @endsection

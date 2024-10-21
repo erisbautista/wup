@@ -1,12 +1,12 @@
 .calendar-home {
     display: grid;
-    grid-template-areas: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     height: 100%;
     padding: 0.5rem;
 
     .section {
         display: grid;
-        grid-template-rows: min-content 1fr;
+        grid-template-rows: min-content 13rem;
 
         .heading {
             background-color: $color-primary-dark;
@@ -32,9 +32,18 @@
                 justify-content: center;
                 align-content: center;
                 min-width: 20rem;
+
+                &-title {
+                    text-align: center;
+                }
             }
         }
     }
+}
+
+.calendar-wrapper {
+    display: grid;
+    grid-template-rows: min-content max-content;
 }
 
 .calendar-feedback {
@@ -61,7 +70,7 @@
         .feedback-input {
             background-color: $color-primary-light;
             width: 100%;
-            height: 100%;
+            height: 30vh;
         }
     }
 

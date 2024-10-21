@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Middleware\CheckIfAdmin;
+use App\Http\Middleware\checkIfAuthenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -11,7 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectGuestsTo(fn (Request $request) => route('login'));
+
+        $middleware->alias([
+            'admin' => CheckIfAdmin::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

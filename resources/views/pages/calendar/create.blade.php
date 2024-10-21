@@ -1,4 +1,4 @@
-@extends('../../../layouts.admin')
+@extends('../../layouts.calendar')
 
 @section('title','Create Activity')
 
@@ -6,11 +6,17 @@
     
 @endsection
 
-@section('admin-content')
+@section('calendar-content')
     @include('components.activity');
 @endsection
 
-@section('scripts')
+@section('footer')
+<a class="button w-5 text-center" href="{{ route('calendar')}}">
+    back
+</a>
+@endsection
+
+@section('script')
     <script>
         $('document').ready(function() {
             var startPicker = flatpickr('input[type="date"]',{

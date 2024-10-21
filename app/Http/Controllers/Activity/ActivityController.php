@@ -22,7 +22,6 @@ class ActivityController extends Controller
     {
         return view('pages.admin.activity.create');
     }
-
     public function createActivity(Request $request)
     {
         $data = $this->removeToken($request->all());
@@ -32,7 +31,7 @@ class ActivityController extends Controller
 
         if ($result['status'] === true){
             Alert::success('Success', $result['message']);
-            return redirect()->route('admin_activity');
+            return redirect()->back()->with($result);
         }
 
         Alert::error('Error', $result['message']);
@@ -67,4 +66,37 @@ class ActivityController extends Controller
         return response()->json($this->oActivityService->deleteActivity($id));
     }
 
+    public function getUserActivity()
+    {
+        $current = $this->oActivityService->getActivitiesToday();
+        $upcomming = $this->oActivityService->getUpcommingActivities();
+        $data = [
+            'current' => $current,
+            'upcomming' => $upcomming
+        ];
+        return view('pages.calendar', compact('data'));
+    }
+
+    public function getActivities()
+    {
+        $activities = $this->oActivityService->getActivities();
+
+        $activities = $this->formatActivity($activities);
+
+        return view('pages.calendar.view', compact('activities'));
+    }
+
+    private function formatActivity($activities)
+    {
+        $formattedData = [];
+        foreach($activities as $activity) {
+            array_push($formattedData, [
+                'title' => $activity['description'],
+                'start' => $activity['start_date'],
+                'end' => $activity['end_date'],
+                'allDay' => false
+            ]);
+        }
+        return $formattedData;
+    }
 }
