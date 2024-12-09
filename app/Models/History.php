@@ -8,4 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class History extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'table_name',
+        'record',
+        'field',
+        'from',
+        'to',
+        'user_id'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function violation1()
+    {
+        return $this->belongsTo(Violation::class, 'from');
+    }
+
+    public function violation2()
+    {
+        return $this->belongsTo(Violation::class, 'to');
+    }
 }

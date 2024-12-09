@@ -1,6 +1,6 @@
 @extends('../layouts.app')
 
-@section('title','test')
+@section('title','Login')
 
 @section('header')
     <img class="img-logo" src="storage/logo.png" alt="Logo">
@@ -30,7 +30,7 @@
                     <button class="button w-5 login mb-2 text-center" type="submit">
                         Login
                     </button>
-                    <h3>forgot your password? click here to reset your password</h3>
+                    <a href="{{route('password.request')}}"><h3>forgot your password? click here to reset your password</h3></a>
                 </div>
             </form>
         </div>

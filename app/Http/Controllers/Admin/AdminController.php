@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\History;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Routing\Route;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -24,6 +21,10 @@ class AdminController extends Controller
         if ($request->ajax()) {
             $users = $this->oAdminService->getUsers();
             return datatables()->of($users)
+                    ->addIndexColumn()
+                    ->addColumn('role', function($row){
+                        return $row->roles->name;
+                    })
                     ->addColumn('action', function($row){
 
                         // Update Button
@@ -51,6 +52,7 @@ class AdminController extends Controller
         if ($request->ajax()) {
             $violations = $this->oAdminService->getViolations();
             return datatables()->of($violations)
+                    ->addIndexColumn()
                     ->addColumn('action', function($row){
                         
                         // Update Button
@@ -73,14 +75,53 @@ class AdminController extends Controller
 
     public function getHistories(Request $request) 
     {
+        // dd($history->toArray());
         if ($request->ajax()) {
             $history = $this->oAdminService->getHistories();
             return datatables()->of($history)
+                    ->addIndexColumn()
+                    ->editColumn('from', function($data) {
+                        return 'Category ' . $data->violation1->category_no . ', ' . $data->violation1->name;
+                    })
+                    ->editColumn('to', function($data) {
+                        return 'Category ' . $data->violation2->category_no . ', ' . $data->violation2->name;
+                    })
+                    ->editColumn('user_id', function($data) {
+                        return $data->user->username;
+                    })
                     ->editColumn('created_at', function($data)
                     { $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('Y-m-d H:i:s'); return $formatedDate; })
                 ->make(true);
         }
         return view('pages.admin.history');
+    }
+
+    public function getExams(Request $request) 
+    {
+        if ($request->ajax()) {
+            $exams = $this->oAdminService->getExams();
+            return datatables()->of($exams)
+                    ->addIndexColumn()
+                    ->addColumn('strand', function($row){
+                        return $row->strand->name;
+                    })
+                    ->addColumn('action', function($row){
+                        
+                        // Update Button
+                        $updateButton = '<button data-id="'.$row->id.'" id="updateExam" class="button-edit">Edit</button>';
+                        $previewButton = '<button data-id="'.$row->id.'" id="viewExam" class="button-view">View</button>';
+                        // Delete Button
+                        $deleteButton = '<button class="button-delete"><a href="javascript: deleteExam('.$row->id.')" data-confirm-delete="true">Delete</a></button>';
+                        return '<div class="action-button-three">'. $updateButton. $previewButton .$deleteButton . '</div>';
+                    })
+                    ->editColumn('created_at', function($data)
+                    { $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('Y-m-d H:i:s'); return $formatedDate; })
+                ->make(true);
+        }
+        $title = 'Delete Exam!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+        return view('pages.admin.exam.index');
     }
 
     public function getActivities(Request $request) 
@@ -89,6 +130,7 @@ class AdminController extends Controller
             $activities = $this->oAdminService->getActivities();
 
             return datatables()->of($activities)
+                    ->addIndexColumn()
                     ->addColumn('action', function($row){
                                 
                         // Update Button

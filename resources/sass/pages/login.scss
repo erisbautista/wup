@@ -15,5 +15,33 @@
         .login {
             margin-right: 2.5rem;
         }
+
+        a {
+            color: $color-white;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.reset-form {
+    .form-group {
+        margin: 1rem 0;
+        display: grid;
+    }
+
+    .form-footer {
+        display: grid;
+        justify-items: end;
+    }
+
+    a {
+        color: $color-white;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }

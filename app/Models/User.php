@@ -16,11 +16,16 @@ class User extends Authenticatable
     public $incrementing = true;
 
     public function roles() {
-        return $this->belongsTo(Role::class, 'id');
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     public function parent() {
         return $this->hasOne(ParentDetails::class, 'user_id');
+    }
+
+    public function userViolations()
+    {
+        return $this->hasMany(UserViolation::class, 'user_id');
     }
 
     /**

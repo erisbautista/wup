@@ -17,4 +17,9 @@ class Violation extends Model
         'name',
         'category_no'
     ];
+
+    public function userViolations()
+    {
+        return $this->hasMany(UserViolation::class, 'violation_id');
+    }
 }

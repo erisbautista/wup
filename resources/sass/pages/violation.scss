@@ -46,9 +46,27 @@
     grid-gap: 0.5rem;
 
     .violation-record-form {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr min-content;
+
+        &-input {
+            display: grid;
+            grid-gap: 1rem;
+            grid-template-columns: max-content 1fr;
+        }
     }
+}
+
+.select2-container {
+    align-self: center;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: $bg-grey !important;
+}
+
+.select2-results {
+    color: black;
 }
 
 .violation-chart {

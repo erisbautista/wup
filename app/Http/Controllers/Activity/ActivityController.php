@@ -22,6 +22,13 @@ class ActivityController extends Controller
     {
         return view('pages.admin.activity.create');
     }
+
+    public function createActivityPage()
+    {
+        return view('pages.calendar.create');
+    }
+
+
     public function createActivity(Request $request)
     {
         $data = $this->removeToken($request->all());
@@ -43,22 +50,6 @@ class ActivityController extends Controller
         $activities = $this->oActivityService->getActivityById($id);
 
         return view('pages.admin.activity.update', compact('activities'));
-    }
-
-    public function updateActivity(Request $request, $id)
-    {
-        $data = $this->removeToken($request->all());
-        $data = $this->removeMethod($data);
-
-        $result = $this->oActivityService->updateActivity($data, $id);
-
-        if ($result['status'] === true){
-            Alert::success('Success', $result['message']);
-            return redirect()->route('admin_activity');
-        }
-
-        Alert::error('Error', $result['message']);
-        return redirect()->back()->with($result); ;
     }
 
     public function deleteActivity($id)

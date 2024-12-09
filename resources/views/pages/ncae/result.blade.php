@@ -4,29 +4,23 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Pre-test</title>
+        <title>Result</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         @vite(['resources/sass/main.scss', 'resources/js/app.js'])
     </head>
     <body>
         <div class="container">
             <div class="header mb-4">
-                <h1>NCAE PRE-TEST</h1>
+                <h1>RESULTS OF PRE-TEST</h1>
             </div>
             <div class="ncae-result">
                 <div class="result card">
-                    <div class="result-header p-2">
-                        <span>STEM</span>
-                        <span>ABM</span>
-                        <span>HUMSS</span>
-                        <span>TVL</span>
-                    </div>
-                    <h1 class="result-header-text">RESULTS OF PRE-TEST</h1>
                     <div class="result-body">
-                        ANALYTICS OF THE RESULTS BASED ON THE PRE-TEST.
+                        {!! $chart->render() !!}
                     </div>
                     <div class="result-footer">
                         <a class="w-3 exit" href="{{ route('ncae')}}">
@@ -36,5 +30,6 @@
                 </div>
             </div>
         </div>
+        @include('sweetalert::alert')
     </body>
 </html>

@@ -1,6 +1,6 @@
 @extends('../../layouts.calendar')
 
-@section('title','test')
+@section('title','Feedback')
 
 @section('header')
     <h1>SCHOOL CALENDAR</h1>

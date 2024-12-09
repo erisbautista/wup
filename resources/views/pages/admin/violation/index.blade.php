@@ -26,6 +26,12 @@
     </div>
 @endsection
 
+@section('footer')
+    <a class="button w-5 text-center" href="{{ route('logout')}}">
+        Log out
+    </a>
+@endsection
+
 @section('scripts')
     <script>
         $(document).ready(function () {
@@ -35,7 +41,7 @@
             serverSide: true,
             ajax: "{{ route('admin_violation') }}",
             columns: [
-                { data: 'id', "searchable":false },
+                { data: 'DT_RowIndex', "searchable":false },
                 { data: "name", name: "name" },
                 { data: "category_no", name: "category_no" },
                 { data: "created_at", name: "created_at" },

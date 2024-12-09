@@ -14,6 +14,30 @@
     width: 10rem;
 }
 
+.m-1 {
+    margin: 2.5rem;
+}
+
+.m-2 {
+    margin: 2rem;
+}
+
+.m-3 {
+    margin: 1.5rem;
+}
+
+.m-4 {
+    margin: 1rem;
+}
+
+.m-5 {
+    margin: 0.5rem;
+}
+
+.p-5 {
+    padding: 0.5rem;
+}
+
 .mb-1 {
     margin-bottom: 0.5rem;
 }
@@ -42,6 +66,10 @@
     height: 47vh;
 }
 
+.height-100 {
+    height: 100%;
+}
+
 .form-input {
     font-family: inherit;
     font-size: 1.5rem;
@@ -52,6 +80,20 @@
     line-height: 1.5rem;
     padding: 0.25em 0.5em;
     margin-left: 0.5rem;
+}
+
+.inline-group {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-gap: 1rem;
+}
+
+.self-center {
+    align-content: center;
+}
+
+.self-end {
+    align-content: end;
 }
 
 .textarea-input {
@@ -68,6 +110,14 @@
     height: 100%;
 }
 
+#select2-user_id-results {
+    color: black;
+}
+
+#select2-violation_id-results {
+    color: black;
+}
+
 .input-select {
     border: 1px solid var(--select-border);
     border-radius: 0.25em;
@@ -77,6 +127,7 @@
     line-height: 2;
     background-color: $input-background;
     margin-left: 0.3rem;
+    color: black;
 }
 
 .form-label {
@@ -149,6 +200,7 @@
     padding: 1rem;
     border-radius: 0.5rem;
     flex: 1 1 auto;
+    color: black;
 
     span {
         color: inherit;

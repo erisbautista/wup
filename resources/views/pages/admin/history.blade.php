@@ -15,6 +15,7 @@
                         <tr class="table-header">
                             <th>#</th>
                             <th>Table Name</th>
+                            <th>Record Updated</th>
                             <th>Field Update</th>
                             <th>From</th>
                             <th>To</th>
@@ -28,6 +29,12 @@
     </div>
 @endsection
 
+@section('footer')
+    <a class="button w-5 text-center" href="{{ route('logout')}}">
+        Log out
+    </a>
+@endsection
+
 @section('scripts')
     <script>
         $(document).ready(function () {
@@ -37,8 +44,9 @@
                 serverSide: true,
                 ajax: "{{ route('admin_history') }}",
                 columns: [
-                    { data: 'id', "searchable":false },
+                    { data: 'DT_RowIndex', "searchable":false },
                     { data: "table_name", name: "table_name" },
+                    { data: "record", name: "record" },
                     { data: "field", name: "field" },
                     { data: "from", name: "from" },
                     { data: "to", name: "to" },

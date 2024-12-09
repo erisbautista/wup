@@ -18,6 +18,7 @@
                             <th>Middle Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>Username</th>
                             <th>Created Date</th>
                             <th>Action</th>
@@ -29,6 +30,12 @@
     </div>
 @endsection
 
+@section('footer')
+    <a class="button w-5 text-center" href="{{ route('logout')}}">
+        Log out
+    </a>
+@endsection
+
 @section('scripts')
 <script>
     $(document).ready(function () {
@@ -38,11 +45,12 @@
             serverSide: true,
             ajax: "{{ route('admin_user') }}",
             columns: [
-                { data: 'id', "searchable":false },
+                { data: 'DT_RowIndex', "searchable":false },
                 { data: "first_name", name: "first_name" },
                 { data: "middle_name", name: "middle_name" },
                 { data: "last_name", name: "last_name" },
                 { data: "email", name: "email" },
+                { data: 'role', name: 'role' },
                 { data: "username", name: "username" },
                 { data: "created_at", name: "created_at" },
                 {data: 'action', name: 'action', orderable: false, searchable: false},

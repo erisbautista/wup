@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class UserExam extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'result',
+        'score',
+        'user_id',
+        'exam_id'
+    ];
+
+    public function exam()
+    {
+        return $this->hasOne(Exam::class, 'id');
+    }
+
 }

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 class ViolationService
 {
 
+    public function getViolations()
+    {
+        return Violation::all();
+    }
+
     public function createViolation($data)
     {
         try{

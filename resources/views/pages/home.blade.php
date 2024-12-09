@@ -1,6 +1,6 @@
 @extends('../layouts.app')
 
-@section('title','test')
+@section('title','Main Menu')
 
 @section('header')
     <img class="img-logo" src="storage/logo.png" alt="Logo">
@@ -10,7 +10,9 @@
     <div class="menu">
         <a href="{{route('calendar')}}" class="btn-menu text-center">School calendar</a>
         <a href="{{route('ncae')}}" class="btn-menu text-center">ncae pre-test</a>
-        <a href="{{route('violation')}}" class="btn-menu text-center">Student Violation tracker</a>
-        <a class="button text-center" href="{{ route('logout')}}">Log out</a>
+        @if(auth()->user()->role_id === 3)
+        <a href="{{route('user_violation')}}" class="btn-menu text-center">Student Violation tracker</a>
+        @endif
+        <a  class="button text-center" href="{{ route('logout')}}">Log out</a>
     </div>
 @endsection

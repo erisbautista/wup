@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService {
 
+
+    public function getUsers()
+    {
+        return User::where('role_id', 2)->get();
+    }
+
     public function createUser($data)
     {
         try{
@@ -67,6 +73,11 @@ class UserService {
                 'message' => $e->getMessage()
             ];
         }
+    }
+
+    public function updatePassword($id, $password)
+    {
+        return User::where('id', $id)->update(['password' => Hash::make($password)]);
     }
 
     public function deleteUser($id)

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('label');
             $table->unsignedBigInteger('question_id');
+            $table->boolean('correct');
             $table->timestamps();
 
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');

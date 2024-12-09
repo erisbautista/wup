@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Mockery\Undefined;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -47,6 +46,7 @@ class UserController extends Controller
     public function getUserById($id)
     {
         $user = $this->oUserService->getUserById($id);
+        // dd($user->toArray());
         return view('pages.admin.user.update', compact('user'));
     }
 
@@ -57,7 +57,15 @@ class UserController extends Controller
 
     public function updatePassword(Request $request, $id)
     {
-        dd($request->all());
+        try {
+            $data = $request->all();
+            $this->oUserService->updatePassword($data['id'], $data['password']);
+            Alert::success('Success', 'Password updated successfully!');
+            return redirect()->route('admin_user');
+        } catch (\Exception $e) {
+            Alert::error('Error', $e->getMessage());
+            return redirect()->back();
+        }
     }
 
     public function checkPassword(Request $request)
@@ -89,7 +97,7 @@ class UserController extends Controller
         $data = $this->refactorData($request->all());
         $data['parent']['user_id'] = (int) $id;
 
-        $result = $this->oAdminService->updateUser($data, (int) $id);
+        $result = $this->oUserService->updateUser($data, (int) $id);
 
         if ($result['status'] === true){
             Alert::success('Success', $result['message']);

@@ -1,6 +1,6 @@
 @extends('../../layouts.violation')
 
-@section('title','test')
+@section('title','Recent Violation')
 
 @section('header')
     <h1>STUDENT VIOLATION TRACKER</h1>
@@ -11,7 +11,7 @@
         <h1 class="d-block">RECENT VIOLATIONS</h1>
         <div class="violation-content">
             <div class="recent-table-wrapper">
-                <table class="table">
+                <table class="table" id="admin-table">
                     <thead>
                         <tr class="table-header">
                             <th>ID Number</th>
@@ -19,108 +19,6 @@
                             <th>Violation Date</th>
                         </tr>
                     </thead>
-                    <tbody class="table-body">
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-123</td>
-                            <td>Category 2, Violence</td>
-                            <td>Oct 3, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-345</td>
-                            <td>Category 3, Sexual Offense </td>
-                            <td>Oct 1, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-123</td>
-                            <td>Category 2, Violence</td>
-                            <td>Oct 3, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-345</td>
-                            <td>Category 3, Sexual Offense </td>
-                            <td>Oct 1, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-123</td>
-                            <td>Category 2, Violence</td>
-                            <td>Oct 3, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-345</td>
-                            <td>Category 3, Sexual Offense </td>
-                            <td>Oct 1, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-123</td>
-                            <td>Category 2, Violence</td>
-                            <td>Oct 3, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-345</td>
-                            <td>Category 3, Sexual Offense </td>
-                            <td>Oct 1, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                        <tr>
-                            <td>21-2121-212</td>
-                            <td>Category 1, No ID</td>
-                            <td>Oct 4, 2024 10:22 AM</td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -128,7 +26,26 @@
 @endsection
 
 @section('footer')
-<a class="button w-5 text-center" href="{{ route('violation')}}">
+<a class="button w-5 text-center" href="{{ route('user_violation')}}">
     back
 </a>
+@endsection
+
+@section('script')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        $('#recent-violation-menu').css('background-color', '#62B485');
+        $("#admin-table").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('user_violation_recent') }}",
+            columns: [
+                { data: "username", name: "username" },
+                { data: "violation", name: "violation" },
+                { data: 'created_at', name: 'created_at'}
+            ],
+            
+        });
+    });
+</script>
 @endsection

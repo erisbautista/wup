@@ -1,6 +1,6 @@
 @extends('../../layouts.violation')
 
-@section('title','test')
+@section('title','Violation Analysis')
 
 @section('header')
     <h1>STUDENT VIOLATION TRACKER</h1>
@@ -10,13 +10,21 @@
     <div class="violation-analysis">
         <h1 class="d-block">VIOLATION ANALYSIS</h1>
         <div class="violation-chart">
-            <x-chartjs-component :chart="$chart" />
+            {!! $chart->render() !!}
         </div>
     </div>
 @endsection
 
 @section('footer')
-<a class="button w-5 text-center" href="{{ route('violation')}}">
+<a class="button w-5 text-center" href="{{ route('user_violation')}}">
     back
 </a>
+@endsection
+
+@section('script')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        $('#analysis-violation-menu').css('background-color', '#62B485');
+    });
+</script>
 @endsection

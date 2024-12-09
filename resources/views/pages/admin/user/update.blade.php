@@ -31,11 +31,11 @@
                     </div>
                     <div class="form-group">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" name="email" value="{{$user->username}}" class="form-input">
+                        <input type="email" id="email" name="email" value="{{$user->email}}" class="form-input">
                     </div>
                     <div class="form-group">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" id="username" name="username" readonly disabled value="{{$user->first_name}}" class="form-input">
+                        <input type="text" id="username" name="username" readonly disabled value="{{$user->username}}" class="form-input">
                     </div>
                     <div class="form-group">
                         <label for="username" class="form-label">Role</label>
@@ -69,6 +69,12 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('footer')
+    <a class="button w-5 text-center" href="{{ route('logout')}}">
+        Log out
+    </a>
 @endsection
 
 @section('scripts')

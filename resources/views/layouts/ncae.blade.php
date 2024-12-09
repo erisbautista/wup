@@ -9,6 +9,9 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         @vite(['resources/sass/main.scss', 'resources/js/app.js'])
     </head>
     <body>
@@ -28,5 +31,7 @@
                 </div>
             </div>
         </div>
+        @include('sweetalert::alert')
+        @yield('script')
     </body>
 </html>

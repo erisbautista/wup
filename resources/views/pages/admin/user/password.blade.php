@@ -1,6 +1,6 @@
 @extends('../../layouts.admin')
 
-@section('title','Update user')
+@section('title','Update user password')
 
 @section('admin-content')
     <div class="change-password">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label for="confirm_password" class="form-label">Confirm New Password</label>
-                    <input type="password" id="confirm_password" name="confirm_password" class="form-input">
+                    <input type="password" id="confirm_password" name="" class="form-input">
                 </div>
                 <div class="change-password-form-footer">
                     <button class="button w-5 text-center" type="submit">Update Password</button>
@@ -30,6 +30,12 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('footer')
+    <a class="button w-5 text-center" href="{{ route('logout')}}">
+        Log out
+    </a>
 @endsection
 
 @section('scripts')

@@ -1,6 +1,6 @@
 @extends('../../../layouts.admin')
 
-@section('title','Create Activity')
+@section('title','Update Activity')
 
 @section('style')
 @endsection
@@ -32,6 +32,12 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('footer')
+    <a class="button w-5 text-center" href="{{ route('logout')}}">
+        Log out
+    </a>
 @endsection
 
 @section('scripts')

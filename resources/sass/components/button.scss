@@ -31,6 +31,34 @@
     box-shadow: 0 2rem 5rem rgb(#000, 0.3);
 }
 
+.button-view {
+    border: none;
+    font-family: inherit;
+    color: $color-white;
+    background-color: $color-primary-dark;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-radius: 3rem;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+}
+
+.button-go {
+    border: none;
+    font-family: inherit;
+    color: $color-white;
+    background-color: $color-secondary;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    border-radius: 3rem;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+}
+
 .button-password-change {
     border: none;
     font-family: inherit;
@@ -78,9 +106,20 @@
     cursor: pointer;
 }
 
+.action-button-one {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
 .action-button {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem;
+}
+
+.action-button-three {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: min-content 1fr;
     grid-gap: 0.5rem;
 }

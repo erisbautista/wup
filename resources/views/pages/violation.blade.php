@@ -1,6 +1,6 @@
 @extends('../layouts.violation')
 
-@section('title','test')
+@section('title','Violations')
 
 @section('header')
     <h1>STUDENT VIOLATION TRACKER</h1>

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Activity;
+use App\Models\Exam;
 use App\Models\History;
 use App\Models\User;
 use App\Models\Violation;
@@ -32,7 +33,8 @@ class AdminService {
     public function getHistories()
     {
         try {
-            return History::all();
+            return History::with(['user', 'violation1','violation2'])->get();
+
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -42,6 +44,15 @@ class AdminService {
     {
         try {
             return Activity::with('user')->get();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getExams()
+    {
+        try {
+            return Exam::with('strand')->get();
         } catch (\Exception $e) {
             return $e->getMessage();
         }

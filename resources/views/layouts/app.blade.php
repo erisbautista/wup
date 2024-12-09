@@ -9,6 +9,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         @vite(['resources/sass/main.scss', 'resources/js/app.js'])
     </head>
     <body>
@@ -18,5 +19,7 @@
             </div>
             @yield('content')
         </div>
+        @include('sweetalert::alert')
+        @yield('scripts')
     </body>
 </html>

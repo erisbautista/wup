@@ -1,6 +1,6 @@
 @extends('../../layouts.calendar')
 
-@section('title','test')
+@section('title','Calendar')
 
 @section('header')
     <h1>SCHOOL CALENDAR</h1>
@@ -27,7 +27,6 @@
     document.addEventListener("DOMContentLoaded", function () {
         $('#activity-menu-calender').css('background-color', '#62B485');
         var activities = {!! json_encode($activities) !!};
-        console.log(activities)
         const calendarEl = document.getElementById("calendar");
         const calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
