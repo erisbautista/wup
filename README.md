@@ -57,3 +57,10 @@ then run the following command
 ```
 php artisan storage:link
 ```
+
+```
+ncae12102024
+12102024@ncaE
+-------------
+r}Z;s$!4oS3I
+```

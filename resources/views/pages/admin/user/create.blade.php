@@ -111,6 +111,10 @@
                 }
                 swal('Password Mismatch', '', 'error');
                 $(this).val('');
+            });
+
+            $('#role').on('change', function() {
+                console.log('role changed');
             })
 
             $('#username').focusout(function() {

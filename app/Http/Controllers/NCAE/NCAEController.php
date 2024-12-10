@@ -64,7 +64,7 @@ class NCAEController extends Controller
                 }
             }
             $exam_data = [
-                'result' => ($count/count($exam)) * 100,
+                'result' => round(($count/count($exam)) * 100),
                 'score' => $count,
                 'user_id' => Auth::user()->id,
                 'exam_id' => $key
@@ -84,6 +84,7 @@ class NCAEController extends Controller
         $label = [];
         $scoreData = [];
         $totalData = [];
+        // dd($examResult->toArray());
         foreach($examResult as $exam) {
             $question = $this->oNCAEService->getQuestions($exam->exam_id);
             array_push($totalData, $question->count());

@@ -121,7 +121,7 @@
                 dataType: 'JSON',
                 success: function ()
                 {
-                    Swal.fire('Success', 'Successfully deleted', 'sucess')
+                    swal('Success', 'Successfully deleted', 'sucess')
                     window.location.reload()
                 }
             });

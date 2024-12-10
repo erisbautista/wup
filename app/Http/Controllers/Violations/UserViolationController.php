@@ -46,11 +46,12 @@ class UserViolationController extends Controller
     public function registerUserViolation(Request $request)
     {
         $data = $this->removeToken($request->all());
+        // dd($data);
         $result = $this->oUserViolationService->createViolation($data);
         if ($result['status'] === true) {
             Alert::success('Success', $result['message']);
             $userViolationCount = $this->oUserViolationService->checkViolationCount($data['user_id']);
-            if($userViolationCount > 0) {
+            if($userViolationCount > 3) {
                 $user = $this->oUserService->getUserById($data['user_id']);
                 $user->parent->notify(new EmailNotification($user));
 

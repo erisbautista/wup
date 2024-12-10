@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-footer">
                     <button class="button w-5 login mb-2 text-center" type="submit">
-                        Login
+                        Reset
                     </button>
                 </div>
             </form>

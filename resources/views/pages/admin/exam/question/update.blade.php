@@ -98,7 +98,7 @@
                 dataType: 'JSON',
                 success: function ()
                 {
-                    Swal.fire('Success', 'Successfully deleted', 'sucess')
+                    swal('Success', 'Successfully deleted', 'sucess')
                     window.location.reload()
                 }
             });
@@ -147,7 +147,7 @@
                 dataType: 'JSON',
                 success: function ()
                 {
-                    Swal.fire('Success', 'Successfully processed!', 'sucess')
+                    swal('Success', 'Successfully processed!', 'sucess')
                     window.location.reload()
                 }
             });
