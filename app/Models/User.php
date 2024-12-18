@@ -42,6 +42,7 @@ class User extends Authenticatable
         'username',
         'role_id',
         'password',
+        'need_reset'
     ];
 
     /**

@@ -13,10 +13,6 @@
                 @method('PUT')
                 <input type="hidden" id="id" name="id" value="{{$id}}">
                 <div class="form-group">
-                    <label for="current_password" class="form-label">Current Password</label>
-                    <input type="password" id="current_password" class="form-input">
-                </div>
-                <div class="form-group">
                     <label for="password" class="form-label">New Password</label>
                     <input type="password" id="password" name="password" class="form-input">
                 </div>
@@ -41,31 +37,7 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('#current_password').focusout(function() {
-                var password = $(this).val();
-                var id = $('#id').val();
-                var url = "{{ route('password_check') }}";
-                var token = document.getElementsByName("_token")[0].value;
-                console.log(id);
-                $.ajax({
-                    url: url,
-                    method: 'POST',
-                    data: {
-                            "id": id,
-                            "_method": 'POST',
-                            "password": password,
-                            "_token": token,
-                    },
-                    dataType: 'JSON',
-                    success: function (data)
-                    {
-                        if (data['success'] !== true) {
-                            swal(data['message'], '', 'error');
-                            $('#current_password').val('')
-                        }
-                    }
-                });
-            });
+            $('#user-menu-item').css('background-color', '#62B485');
             $('#confirm_password').focusout(function() {
                 var confirm_password = $(this).val();
                 var password = $('#password').val();

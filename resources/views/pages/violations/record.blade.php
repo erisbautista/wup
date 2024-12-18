@@ -39,8 +39,8 @@
             <div class="violations">
                 <span>Violations:</span>
                 <div class="table-wrapper">
-                    <table class="table" id="admin-table">
-                        <thead class="table-header">
+                    <table class="dispplay" id="admin-table">
+                        <thead>
                             <tr>
                                 <th>Violation</th>
                                 <th>Violation Date</th>
@@ -100,6 +100,8 @@
                 }
                 $("#admin-table").DataTable({
                     destroy: true,
+                    scrollCollapse: true,
+                    scrollY: '30rem',
                     data: data.data,
                     columns: [
                         { data: "violation", name: "violation" },

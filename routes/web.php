@@ -16,6 +16,8 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::prefix('password')->group(function() {
+    Route::get('/', [LoginController::class, 'firstLogin'])->name('password.first.login');
+    Route::post('/', [LoginController::class, 'updatePassword'])->name('password.first.login.update');
     Route::get('/reset', [LoginController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/email', [LoginController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('/reset/{token}', [LoginController::class, 'showResetForm'])->name('password.reset');

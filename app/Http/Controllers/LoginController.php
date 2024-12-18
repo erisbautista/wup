@@ -8,12 +8,19 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Password;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
+    public $oUserService;
+
+    public function __construct(UserService $oUserService)
+    {
+        $this->oUserService = $oUserService;
+    }
 
     public function index()
     {
@@ -23,6 +30,27 @@ class LoginController extends Controller
     public function showLinkRequestForm()
     {
         return view('pages.forgot');
+    }
+
+    public function firstLogin()
+    {
+        $email = Auth::user()->email;
+        return view('pages.password', compact('email'));
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $id = Auth::user()->id;
+        $password = $request->password;
+        $result = $this->oUserService->updateFirstLogin($id, $password);
+
+        if ($result['status'] === true){
+            Alert::success('Success', $result['message']);
+            return redirect()->intended(Auth::user()->role_id === 1 ? '/admin/user' : '/home');
+        }
+
+        Alert::error('Error', $result['message']);
+        return redirect()->back()->with($result);
     }
 
     public function showResetForm($token, Request $request)
@@ -78,9 +106,14 @@ class LoginController extends Controller
         ]);
 
         if(Auth::attempt($credentials)){
-            $request->session()->regenerate();                                                                          
+            $request->session()->regenerate();
+            // dd(Auth::user()->need_reset);
+            if(Auth::user()->need_reset === true || Auth::user()->need_reset === 1) {
+                Alert::success('Success', 'Welcome! As it is your first time logging in, please update your password!');
+                return redirect()->intended('/password');
+            }                                                               
             Alert::success('Success', 'Welcome! You have successfully logged in.');
-            return redirect()->intended(Auth::user()->role_id === 1 ? '/admin/user' : '/home');;
+            return redirect()->intended(Auth::user()->role_id === 1 ? '/admin/user' : '/home');
         }
 
         Alert::error('Error', 'Incorrect username or password');

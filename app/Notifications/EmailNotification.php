@@ -37,6 +37,7 @@ class EmailNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
+                ->subject('Violation Notification')
                 ->greeting('Hello '. $this->user->parent->first_name . '!')
                 ->line('This is to inform you that '. $this->user->first_name . ' already has 3 or more violations record and for supension' . '!')
                 ->line('Thank you for using our application!');

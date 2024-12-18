@@ -23,10 +23,10 @@
                 </div>
                 <div class="choices-body">
                     <div class="choices-table-wrapper">
-                        <table class="table cell-border compact stripe" id="admin-table">
+                        <table class="display" id="admin-table">
                             @csrf
                             <thead>
-                                <tr class="table-header">
+                                <tr>
                                     <th>#</th>
                                     <th>name</th>
                                     <th>isCorrectAnswer</th>
@@ -57,6 +57,8 @@
             $("#admin-table").DataTable({
                 processing: true,
                 serverSide: true,
+                scrollCollapse: true,
+                scrollY: '20rem',
                 ajax: url,
                 columns: [
                     { data: 'DT_RowIndex', "searchable":false },

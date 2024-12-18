@@ -29,6 +29,11 @@ class RoleSeeder extends Seeder
                 'id' => 3,
                 'name' => 'teacher',
                 'created_at' => Date::now(),
+            ],
+            [
+                'id' => 3,
+                'name' => 'admin-osa',
+                'created_at' => Date::now(),
             ]
         ]);
     }

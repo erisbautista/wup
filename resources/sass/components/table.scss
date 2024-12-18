@@ -3,14 +3,14 @@
     border-collapse: separate;
     border-spacing: 0;
     color: $input-color;
-    text-align: center;
+    // text-align: center;
 
     .table-body {
         background-color: $color-white;
 
         td {
             border: solid 0.1rem $table-border;
-            padding: 0.5rem;
+            // padding: 0.5rem;
             height: 2rem;
         }
     }
@@ -27,12 +27,6 @@
 }
 
 .table-wrapper {
-    overflow: hidden;
-    overflow-y: auto;
-}
-
-.recent-table-wrapper {
-    max-height: 31.9rem;
     overflow: hidden;
     overflow-y: auto;
 }

@@ -11,13 +11,13 @@
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        <link  href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         @yield('style')
         @vite(['resources/sass/main.scss', 'resources/js/app.js'])
@@ -34,14 +34,14 @@
                     <a href="{{route('admin_activity')}}" id="activity-menu-item" class="btn-menu text-center">Activities</a>
                     <a href="{{route('admin_history')}}"id="history-menu-item" class="btn-menu text-center">History</a>
                     <a href="{{route('admin_exam')}}"id="exam-menu-item" class="btn-menu text-center">NCAE Exam</a>
+                    <div class="footer">
+                        @yield('footer')
+                    </div>
                 </div>
                 <div class="content">
                     <div class="card">
                         @yield('admin-content')
                     </div>
-                </div>
-                <div class="footer">
-                    @yield('footer')
                 </div>
             </div>
         </div>

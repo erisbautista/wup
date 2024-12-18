@@ -197,13 +197,11 @@
     }
 
     &-table-wrapper {
-        max-height: 31.9rem;
-        overflow: hidden;
-        overflow-y: auto;
         background-color: $bg-grey;
         padding: 1rem;
         border-radius: 0.5rem;
         box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+        color: black;
     }
 }
 
@@ -350,6 +348,7 @@
     padding: 1rem;
     border-radius: 0.5rem;
     box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+    color: black;
 }
 
 .create-choice-form {

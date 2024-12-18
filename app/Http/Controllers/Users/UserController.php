@@ -32,6 +32,7 @@ class UserController extends Controller
     public function createUser(Request $request)
     {
         $data = $this->refactorData($request->all());
+        
         $result = $this->oUserService->createUser($data);
         
         if ($result['status'] === true){
@@ -95,7 +96,6 @@ class UserController extends Controller
     public function updateUser(Request $request, $id)
     {
         $data = $this->refactorData($request->all());
-        $data['parent']['user_id'] = (int) $id;
 
         $result = $this->oUserService->updateUser($data, (int) $id);
 
@@ -119,19 +119,20 @@ class UserController extends Controller
     {
         $parent = array_filter($requestData, function($data) {
             return in_array($data, $this->parentFields);
-        }, ARRAY_FILTER_USE_KEY); 
+        }, ARRAY_FILTER_USE_KEY);
+        $parent = empty($parent) ? [] : $this->removeNull([
+            'first_name' => $parent['parent_first_name'],
+            'middle_name' => $parent['parent_middle_name'],
+            'last_name' => $parent['parent_last_name'],
+            'email' => $parent['parent_email'],
+        ]);
         $user = array_filter($requestData, function($data) {
             return !in_array($data, $this->parentFields) && $data != '_token' && $data != 'confirm_password' && $data != '_method';
         }, ARRAY_FILTER_USE_KEY); 
         $user['role_id'] = (int) $user['role_id'];
         return [
             'user' => $this->removeNull($user),
-            'parent' => $this->removeNull([
-                'first_name' => $parent['parent_first_name'],
-                'middle_name' => $parent['parent_middle_name'],
-                'last_name' => $parent['parent_last_name'],
-                'email' => $parent['parent_email'],
-            ])
+            'parent' => $parent
         ];
     }
 

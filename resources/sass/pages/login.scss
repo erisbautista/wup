@@ -27,6 +27,8 @@
 }
 
 .reset-form {
+    width: 15vw;
+
     .form-group {
         margin: 1rem 0;
         display: grid;
@@ -35,6 +37,11 @@
     .form-footer {
         display: grid;
         justify-items: end;
+    }
+
+    .form-label {
+        font-size: 1.5rem;
+        font-weight: 600;
     }
 
     a {

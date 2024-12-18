@@ -76,9 +76,9 @@
     color: $input-color;
     background-color: $input-background;
     border: none;
-    border-radius: 0.3rem;
-    line-height: 1.5rem;
-    padding: 0.25em 0.5em;
+    border-radius: 0.25rem;
+    line-height: 2;
+    padding: 0.5rem 1rem;
     margin-left: 0.5rem;
 }
 
@@ -100,7 +100,7 @@
     background-color: $input-background;
     font-family: inherit;
     font-size: 1.5rem;
-    line-height: 1.5rem;
+    line-height: 2;
     color: $input-color;
     border: none;
     border-radius: 0.3rem;
@@ -121,12 +121,12 @@
 .input-select {
     border: 1px solid var(--select-border);
     border-radius: 0.25em;
-    padding: 0.25em 0.5em;
-    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
     cursor: pointer;
     line-height: 2;
     background-color: $input-background;
-    margin-left: 0.3rem;
+    margin-left: 0.5rem;
     color: black;
 }
 
@@ -212,4 +212,15 @@
 
 .warning {
     border: 1px solid red;
+}
+
+.required::after {
+    content: "*";
+    color: red;
+    font-size: 2rem;
+    display: inline-block;
+}
+
+.margin-top-3 {
+    margin-top: 1rem;
 }

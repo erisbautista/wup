@@ -9,10 +9,10 @@
         </div>
         <div class="user-body">
             <div class="user-table-wrapper">
-                <table class="table cell-border compact stripe" id="admin-table">
+                <table class="display" id="admin-table">
                     @csrf
                     <thead>
-                        <tr class="table-header">
+                        <tr>
                             <th>#</th>
                             <th>Description</th>
                             <th>Start Date</th>
@@ -41,6 +41,8 @@
         $("#admin-table").DataTable({
             processing: true,
             serverSide: true,
+            scrollCollapse: true,
+            scrollY: '30rem',
             ajax: "{{ route('admin_activity') }}",
             columns: [
                 { data: 'DT_RowIndex', "searchable":false },

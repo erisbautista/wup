@@ -1,0 +1,24 @@
+.admin-main {
+    display: grid;
+    grid-template-columns: minmax(min-content, 30rem) minmax(50rem, min-content);
+    max-height: 50rem;
+
+    .side-nav {
+        display: flex;
+        flex-direction: column;
+
+        a {
+            margin: 1rem;
+        }
+    }
+
+    .content {
+        grid-column: 2 / 3;
+    }
+
+    .footer {
+        display: grid;
+        justify-content: center;
+        align-items: end;
+    }
+}

@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'level' => 'admin',
             'role_id' => 1,
             'username' => 'admin',
+            'need_reset' => false,
             'password' => Hash::make('admin'),
             'created_at' => Date::now(),
         ]);

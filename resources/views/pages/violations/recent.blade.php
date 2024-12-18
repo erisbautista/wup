@@ -11,9 +11,9 @@
         <h1 class="d-block">RECENT VIOLATIONS</h1>
         <div class="violation-content">
             <div class="recent-table-wrapper">
-                <table class="table" id="admin-table">
+                <table class="display" id="admin-table">
                     <thead>
-                        <tr class="table-header">
+                        <tr>
                             <th>ID Number</th>
                             <th>Violation</th>
                             <th>Violation Date</th>
@@ -38,6 +38,8 @@
         $("#admin-table").DataTable({
             processing: true,
             serverSide: true,
+            scrollCollapse: true,
+            scrollY: '25rem',
             ajax: "{{ route('user_violation_recent') }}",
             columns: [
                 { data: "username", name: "username" },

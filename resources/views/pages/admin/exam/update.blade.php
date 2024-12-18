@@ -36,10 +36,10 @@
                 </div>
                 <div class="exam-questions-body">
                     <div class="exam-table-wrapper">
-                        <table class="table cell-border compact stripe" id="admin-table">
+                        <table class="display" id="admin-table">
                             @csrf
                             <thead>
-                                <tr class="table-header">
+                                <tr>
                                     <th>#</th>
                                     <th>question</th>
                                     <th>Created Date</th>
@@ -89,6 +89,8 @@
         $("#admin-table").DataTable({
             processing: true,
             serverSide: true,
+            scrollCollapse: true,
+            scrollY: '30rem',
             ajax: url,
             columns: [
                 { data: 'DT_RowIndex', "searchable":false },

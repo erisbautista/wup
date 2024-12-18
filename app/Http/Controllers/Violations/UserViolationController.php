@@ -54,7 +54,6 @@ class UserViolationController extends Controller
             if($userViolationCount > 3) {
                 $user = $this->oUserService->getUserById($data['user_id']);
                 $user->parent->notify(new EmailNotification($user));
-
             }
             return redirect()->back();
         } 
