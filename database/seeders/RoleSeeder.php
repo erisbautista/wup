@@ -31,7 +31,7 @@ class RoleSeeder extends Seeder
                 'created_at' => Date::now(),
             ],
             [
-                'id' => 3,
+                'id' => 4,
                 'name' => 'admin-osa',
                 'created_at' => Date::now(),
             ]
