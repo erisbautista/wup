@@ -22,32 +22,29 @@
                 <h1>NCAE PRE-TEST</h1>
             </div>
             <div class="ncae-test">
-                <div class="question card">
+                <div class="pretest-question card">
                     <div class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
                             @csrf
                             @php($count = 1)
                         <!-- Slides -->
-                            @foreach($exams as $exam)
-                                @foreach($exam->questions as $key => $question)
-                                    <div class="swiper-slide">
-                                        <div class="slider-content">
-                                            <span class="question-title">{{$exam->name}}</span>
-                                            <h1>{{ $count . '. '. $question->question}}</h1>
-                                            @foreach($question->choices as $choice)
-                                            <label class="radio">
-                                                <span class="radio-input">
-                                                <input data-exam="{{$exam->id}}" data-question="{{$question->id}}" onclick="setAnswer({{$exam->id}}, {{$question->id}}, {{$choice->id}})" type="radio" value="{{$choice->id}}" name="{{$question->id}}">
-                                                <span class="radio-control"></span>
-                                                </span>
-                                                <span class="radio-label">{{$choice->label}}</span>
-                                            </label>
-                                            @endforeach
-                                        </div>
+                            @foreach($questions as $question)
+                                <div class="swiper-slide">
+                                    <div class="slider-content">
+                                        <h1>{{ $count . '. '. $question->question}}</h1>
+                                        @foreach($question->choices as $choice)
+                                        <label class="radio">
+                                            <span class="radio-input">
+                                            <input data-exam="{{$question->id}}" data-question="{{$question->id}}" onclick="setAnswer({{$question->exam_id}}, {{$question->id}}, {{$choice->id}})" type="radio" value="{{$choice->id}}" name="{{$question->id}}">
+                                            <span class="radio-control"></span>
+                                            </span>
+                                            <span class="radio-label">{{$choice->label}}</span>
+                                        </label>
+                                        @endforeach
                                     </div>
-                                    @php($count++)
-                                @endforeach
+                                </div>
+                                @php($count++)
                             @endforeach
                         </div>
                         <div class="swiper-pagination"></div>
@@ -67,7 +64,7 @@
         <script>
             var swiper;
             var question_length;
-            var exam_data = {!! json_encode($exams) !!};
+            var exam_data = {!! json_encode($questions) !!};
             var data = [];
             var token = document.getElementsByName("_token")[0].value;
             $(document).ready(function () {
@@ -104,7 +101,7 @@
                 var unansweredEl = document.createElement('div');
                 $(unansweredEl).addClass('question-list-unfinished');
                 $.each(data, function(key, value) {
-                    $(unansweredEl).append(`<span onclick="swiperNavigate(`+ key +`)">` + (key + 1) + `</span>`);
+                    $(unansweredEl).append(`<span class="question-list-unfinished-item" onclick="swiperNavigate(`+ key +`)">` + (key + 1) + `</span>`);
                 })
                 swal("Select from the following questions:", {
                     content: unansweredEl,
@@ -127,56 +124,58 @@
 
             function prepareData() {
                 $.each(exam_data, function(key, question) {
-                    $.each(question.questions, function(key, value) {
-                        data.push({
-                            exam_id: value.exam_id,
-                            question_id: value.id,
-                            answer: null
-                        })
+                    data.push({
+                        exam_id: question.exam_id,
+                        question_id: question.id,
+                        answer: null
                     })
                 })
             }
 
             function submitForm() {
                 var count = 0;
+                var text = 'Are you sure you want to submit?';
                 $.each(data, function(key, value) {
                     if(value.answer ===null) {
                         count++;
                     }
                 })
+                console.log(data);
 
                 if( count > 0 ) {
-                    swal(
-                        {
-                            text: 'There are '+ count + ' more questions to answer! Are you sure you want to submit the form?',
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: true,
-                        }
-                    ).then((confirm) => {
-                        if (confirm) {
-                            $.ajax({
-                                url: "{{ route('ncae_test_submit') }}",
-                                method: 'POST',
-                                data: {
-                                        "data": data,
-                                        "_token": token,
-                                },
-                                dataType: 'JSON',
-                                success: function (data)
-                                {
-                                    if(data['status'] === true) {
-                                        swal('successfully submitted to exam!', {
-                                            icon: 'success',
-                                            buttons: false
-                                        });
-                                        window.location.href = '/ncae/result'
-                                    }
-                                }
-                            });
-                        }
-                    });
+                    text = 'There are '+ count + ' more questions to answer! Are you sure you want to submit the form?';
                 }
+
+                swal(
+                    {
+                        text: text,
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    }
+                ).then((confirm) => {
+                    if (confirm) {
+                        $.ajax({
+                            url: "{{ route('ncae_test_submit') }}",
+                            method: 'POST',
+                            data: {
+                                    "data": data,
+                                    "_token": token,
+                            },
+                            dataType: 'JSON',
+                            success: function (data)
+                            {
+                                if(data['status'] === true) {
+                                    swal('successfully submitted to exam!', {
+                                        icon: 'success',
+                                        buttons: false
+                                    });
+                                    window.location.href = '/ncae/result'
+                                }
+                            }
+                        });
+                    }
+                });
             }
         </script>
         @include('../../components/ncaeModal')

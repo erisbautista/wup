@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Violations;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\categoryBaseNotification;
 use App\Notifications\EmailNotification;
 use App\Services\UserService;
 use App\Services\UserViolationService;
@@ -47,12 +48,16 @@ class UserViolationController extends Controller
     {
         $data = $this->removeToken($request->all());
         // dd($data);
+        $violation = $this->oViolationService->getViolationById($data['violation_id']);
         $result = $this->oUserViolationService->createViolation($data);
         if ($result['status'] === true) {
             Alert::success('Success', $result['message']);
             $userViolationCount = $this->oUserViolationService->checkViolationCount($data['user_id']);
+            $user = $this->oUserService->getUserById($data['user_id']);
+            if ($violation->category_no === 3) {
+                $user->parent->notify(new categoryBaseNotification($user, $violation));
+            }
             if($userViolationCount > 3) {
-                $user = $this->oUserService->getUserById($data['user_id']);
                 $user->parent->notify(new EmailNotification($user));
             }
             return redirect()->back();
@@ -122,6 +127,20 @@ class UserViolationController extends Controller
         return view('pages.violations.record', compact('users'));
     }
 
+    public function completeViolation($id)
+    {
+        $data = [
+            'table_name' => 'User Violations',
+            'record' => $id,
+            'field' => 'status',
+            'from' => 'pending',
+            'to' => 'completed',
+            'user_id' => Auth::user()->id
+        ];
+        $result = $this->oUserViolationService->completeViolation($id, $data);
+        return response()->json($result);
+    }
+
     public function getUserViolationRecord(Request $request)
     {
         $data = $this->removeMethod($request->all());
@@ -133,9 +152,12 @@ class UserViolationController extends Controller
             return 'Category '. $row->violation->category_no .', '. $row->violation->name;
         })
         ->addColumn('action', function($row){
-
             // Update Button
             $updateButton = '<button data-id="'.$row->id.'" id="updateViolation" class="button-edit">Edit</button>';
+            if ($row->status === 'pending') {
+                $MarkCompleteButton = '<button data-id="'.$row->id.'" id="completeViolation" class="button-view">Mark As Complete</button>';
+                return '<div class="action-button">'. $updateButton . $MarkCompleteButton .'</div>';
+            }
             return '<div class="action-button-one">'. $updateButton .'</div>';
         })
         ->editColumn('created_at', function($data)

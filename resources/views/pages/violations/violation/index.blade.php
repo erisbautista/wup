@@ -1,8 +1,12 @@
-@extends('../../../layouts.admin')
+@extends('../../../layouts.violation')
 
 @section('title','Violations')
 
-@section('admin-content')
+@section('header')
+    <h1>STUDENT VIOLATION TRACKER</h1>
+@endsection
+
+@section('violation-content')
     <div class="user">
         <div class="user-header">
             <a href="{{ route('create_violation_view')}}" class="button w-2 text-center button-new">New</a>
@@ -32,7 +36,7 @@
     </a>
 @endsection
 
-@section('scripts')
+@section('script')
     <script>
         $(document).ready(function () {
         $('#violation-menu-item').css('background-color', '#62B485');
@@ -41,7 +45,7 @@
             serverSide: true,
             scrollCollapse: true,
             scrollY: '30rem',
-            ajax: "{{ route('admin_violation') }}",
+            ajax: "{{ route('violation_index') }}",
             columns: [
                 { data: 'DT_RowIndex', "searchable":false },
                 { data: "name", name: "name" },

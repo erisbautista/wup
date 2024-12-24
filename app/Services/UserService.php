@@ -8,6 +8,7 @@ use App\Notifications\AccountCreationNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\UserViolation;
 
 class UserService {
 
@@ -60,14 +61,19 @@ class UserService {
         return User::where('username', $username)->count();
     }
 
-    public function updateUser($data, $id)
+    public function updateUser($data, $id, $level)
     {
         try{
             DB::beginTransaction();
-            User::where('id', $id)->update($data['user']);
+            $user = User::find($id);
+            $user->update($data['user']);
             if (!empty($data['parent'])) {
                 $data['parent']['user_id'] = (int) $id;
                 ParentDetails::where('user_id', $id)->updateOrCreate($data['parent'])->id;
+            }
+
+            if ($level !== $data['user']['level']) {
+                UserViolation::where('user_id', $id)->delete();
             }
 
             DB::commit();

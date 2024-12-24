@@ -15,4 +15,9 @@ abstract class Controller
     {
         return array_filter($data, static function($var){return $var !== '_method';}, ARRAY_FILTER_USE_KEY );
     }
+
+    protected function removeNull($data)
+    {
+        return array_filter($data, static function($var){return $var !== null;} );
+    }
 }

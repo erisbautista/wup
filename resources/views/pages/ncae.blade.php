@@ -13,6 +13,7 @@
         <a id="ncae-test-menu" class="btn-menu text-center">TAKE PRE-TEST</a>
         <a href="{{route('ncae_strand')}}" id="ncae-strand-menu" class="btn-menu text-center">BROWSE STRANDS</a>
         <a href="{{route('ncae_career')}}" id="ncae-career-menu" class="btn-menu text-center">RELATED CAREERS</a>
+        <a href="{{route('ncae_result')}}" id="ncae-stats-menu" class="btn-menu text-center">CHECK STATISTICS</a>
     </div>
 @endsection
 

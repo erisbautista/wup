@@ -21,15 +21,6 @@ class AdminService {
         }
     }
 
-    public function getViolations()
-    {
-        try {
-            return Violation::all();
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
     public function getHistories()
     {
         try {

@@ -16,6 +16,7 @@
                         <tr>
                             <th>ID Number</th>
                             <th>Violation</th>
+                            <th>Status</th>
                             <th>Violation Date</th>
                         </tr>
                     </thead>
@@ -26,8 +27,8 @@
 @endsection
 
 @section('footer')
-<a class="button w-5 text-center" href="{{ route('user_violation')}}">
-    back
+<a class="button w-5 text-center" href="{{ route('logout')}}">
+    Log Out
 </a>
 @endsection
 
@@ -44,6 +45,7 @@
             columns: [
                 { data: "username", name: "username" },
                 { data: "violation", name: "violation" },
+                { data: "status", name: "status" },
                 { data: 'created_at', name: 'created_at'}
             ],
             

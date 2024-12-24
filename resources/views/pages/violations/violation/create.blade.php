@@ -1,8 +1,12 @@
-@extends('../../../layouts.admin')
+@extends('../../../layouts.violation')
 
 @section('title','Create Violation')
 
-@section('admin-content')
+@section('header')
+    <h1>STUDENT VIOLATION TRACKER</h1>
+@endsection
+
+@section('violation-content')
     <div class="violation-create">
         <div class="violation-create-header">
             <h1 class="text-uppercase">Create new Violation</h1>
@@ -27,7 +31,7 @@
 @endsection
 
 @section('footer')
-    <a class="button w-5 text-center" href="{{ route('logout')}}">
-        Log out
+    <a class="button w-5 text-center" href="{{ route('violation_index')}}">
+        Back
     </a>
 @endsection

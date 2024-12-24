@@ -26,7 +26,9 @@ class NCAEService
 
     public function getExams()
     {
-        return Exam::with('questions.choices')->get();
+        return Question::inRandomOrder()->with(['choices' => function($q) {
+            $q->inRandomOrder();
+        }])->limit(30)->get();
     }
 
     public function getCheckUserExam($id)
@@ -34,14 +36,31 @@ class NCAEService
         return UserExam::where('user_id', $id)->count();
     }
 
-    public function checkAnswer($exam)
+    public function getExamStatistics()
     {
-        return Choice::where('id', $exam['answer'])->first();
+        return UserExam::selectRaw('year(created_at) year, monthname(created_at) month,
+        min(DATE_FORMAT(created_at, "%M-%Y")) AS new_date, count(*) data')
+        ->groupBy('year', 'month')
+        ->orderBy('created_at', 'asc')
+        ->get();
+
+    }
+
+    public function checkAnswer($answer)
+    {
+        return Choice::whereIn('id', $answer)->where('correct', '=', 1)->count();
     }
 
     public function result($id)
     {
-        return UserExam::where('user_id', $id)->with('exam')->with('exam.strand')->get();
+        return UserExam::where('user_id', $id)->get();
+    }
+
+    public function getUserExamPerMonthByUserId($userId)
+    {
+        return UserExam::where('user_id', $userId)->get()->groupBy(function($date) {
+            return Carbon::parse($date->created_at)->format('M');
+        });
     }
 
     public function createUserExam($exam)

@@ -29,19 +29,6 @@ Route::middleware(['auth'])->group(function() {
         return view('pages.home');
     })->name('home');
 
-    // ---------------------------------------------------------------- Violation routes ----------------------------------------------------------------
-    Route::prefix('user/violation')->group(function() {
-        Route::get('/', [UserViolationController::class, 'index'])->name('user_violation');
-        Route::get('/register', [UserViolationController::class, 'getRegisterViolationData'])->name('user_violation_register_view');
-        Route::post('/register', [UserViolationController::class, 'registerUserViolation'])->name('user_violation_register');
-        Route::get('/record', [UserViolationController::class, 'getRecordViolationData'])->name('user_violation_record');
-        Route::post('/record', [UserViolationController::class, 'getUserViolationRecord'])->name('user_violation_record_search');
-        Route::get('/analysis', [UserViolationController::class, 'getViolationAnalysis'])->name('user_violation_analysis');
-        Route::get('/recent', [UserViolationController::class, 'getUserViolations'])->name('user_violation_recent');
-        Route::get('/update/{id}', [UserViolationController::class, 'getUserViolationById'])->name('user_violation_update_view');
-        Route::put('/update/{id}', [UserViolationController::class, 'updateuserViolation'])->name('user_violation_update');
-    });
-
     // ---------------------------------------------------------------- Calendar routes ----------------------------------------------------------------
     Route::prefix('calendar')->group(function() {
         Route::get('/', [ActivityController::class, 'getUserActivity'])->name('calendar');
@@ -82,15 +69,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         });
     });
 
-    /* ---------------------------------------------------------------- Violation CRUD routes ---------------------------------------------------------------- */
-    Route::prefix('violation')->group(function() {
-        Route::get('/', [ViolationController::class, 'index'])->name('create_violation_view');
-        Route::post('/', [ViolationController::class, 'createViolation'])->name('create_violation');
-        Route::get('/{id}', [ViolationController::class, 'getViolationById'])->name('update_violation_view');
-        Route::put('/{id}', [ViolationController::class, 'updateViolation'])->name('update_violation');
-        Route::delete('/{id}', [ViolationController::class, 'deleteViolation'])->name('delete_violation');
-    });
-
     /* ---------------------------------------------------------------- Activity CRUD routes ---------------------------------------------------------------- */
     Route::prefix('activity')->group(function() {
         Route::get('/', [ActivityController::class, 'index'])->name('create_activity_view');
@@ -126,12 +104,37 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/user', [AdminController::class, 'getUsers'])->name('admin_user');
         Route::get('/activity', [AdminController::class, 'getActivities'])->name('admin_activity');
-        Route::get('/violation', [AdminController::class, 'getViolations'])->name('admin_violation');
         Route::get('/history', [AdminController::class, 'getHistories'])->name('admin_history');
         Route::get('/exam', [AdminController::class, 'getExams'])->name('admin_exam');
+        Route::get('/exam/statistics', [ExamController::class, 'examStatistics'])->name('admin_exam_statistics');
     });
 });
 
+Route::middleware(['auth', 'osa'])->group(function() {
+    // ---------------------------------------------------------------- Violation routes ----------------------------------------------------------------
+    Route::prefix('user/violation')->group(function() {
+        Route::get('/', [UserViolationController::class, 'index'])->name('user_violation');
+        Route::get('/register', [UserViolationController::class, 'getRegisterViolationData'])->name('user_violation_register_view');
+        Route::post('/register', [UserViolationController::class, 'registerUserViolation'])->name('user_violation_register');
+        Route::get('/record', [UserViolationController::class, 'getRecordViolationData'])->name('user_violation_record');
+        Route::post('/record', [UserViolationController::class, 'getUserViolationRecord'])->name('user_violation_record_search');
+        Route::get('/analysis', [UserViolationController::class, 'getViolationAnalysis'])->name('user_violation_analysis');
+        Route::get('/recent', [UserViolationController::class, 'getUserViolations'])->name('user_violation_recent');
+        Route::get('/update/{id}', [UserViolationController::class, 'getUserViolationById'])->name('user_violation_update_view');
+        Route::put('/update/{id}', [UserViolationController::class, 'updateuserViolation'])->name('user_violation_update');
+        Route::put('/complete/{id}', [UserViolationController::class, 'completeViolation'])->name('user_violation_complete');
+    });
+
+    /* ---------------------------------------------------------------- Violation CRUD routes ---------------------------------------------------------------- */
+    Route::prefix('violation')->group(function() {
+        Route::get('/', [ViolationController::class, 'index'])->name('violation_index');
+        Route::get('/register', [ViolationController::class, 'createViolationPage'])->name('create_violation_view');
+        Route::post('/register', [ViolationController::class, 'createViolation'])->name('create_violation');
+        Route::get('/{id}', [ViolationController::class, 'getViolationById'])->name('update_violation_view');
+        Route::put('/{id}', [ViolationController::class, 'updateViolation'])->name('update_violation');
+        Route::delete('/{id}', [ViolationController::class, 'deleteViolation'])->name('delete_violation');
+    });
+});
 
 
 

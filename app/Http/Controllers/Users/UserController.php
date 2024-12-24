@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
+use App\Services\UserViolationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -12,6 +13,8 @@ class UserController extends Controller
 {
     public $oUserService;
 
+    public $oUserViolationService;
+
     public $parentFields = [
         'parent_first_name',
         'parent_middle_name',
@@ -19,9 +22,10 @@ class UserController extends Controller
         'parent_email'
     ];
 
-    public function __construct(UserService $oUserService)
+    public function __construct(UserService $oUserService, UserViolationService $oUserViolationService)
     {
-        $this->oUserService = new $oUserService();
+        $this->oUserService = $oUserService;
+        $this->oUserViolationService = $oUserViolationService;
     }
 
     public function index()
@@ -97,7 +101,8 @@ class UserController extends Controller
     {
         $data = $this->refactorData($request->all());
 
-        $result = $this->oUserService->updateUser($data, (int) $id);
+        $user = $this->oUserService->getUserById($id);
+        $result = $this->oUserService->updateUser($data, (int) $id, $user->level);
 
         if ($result['status'] === true){
             Alert::success('Success', $result['message']);
@@ -105,7 +110,7 @@ class UserController extends Controller
         }
 
         Alert::error('Error', $result['message']);
-        return redirect()->back()->with($result); ;
+        return redirect()->back()->with($result);
     }
 
     public function deleteUser($id)
@@ -135,10 +140,4 @@ class UserController extends Controller
             'parent' => $parent
         ];
     }
-
-    private function removeNull($data)
-    {
-        return array_filter($data, static function($var){return $var !== null;} );
-    }
-    
 }

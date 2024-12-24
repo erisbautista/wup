@@ -38,7 +38,7 @@
 @endsection
 
 @section('footer')
-<a class="button w-5 text-center" href="{{ route('user_violation')}}">
+<a class="button w-5 text-center" href="{{ route('user_violation_record')}}">
     back
 </a>
 @endsection
@@ -48,7 +48,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var data = {!!json_encode($data['violations'])!!}
-        $('#register-violation-menu').css('background-color', '#62B485');
+        $('#record-violation-menu').css('background-color', '#62B485');
         $('#user_id').select2();
         $('#violation_id').select2();
 

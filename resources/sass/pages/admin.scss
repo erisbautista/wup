@@ -157,3 +157,26 @@
         background-color: $input-background !important;
     }
 }
+
+.statistics {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template-rows: min-content 1fr;
+
+    .chart-wrapper {
+        background-color: $bg-grey;
+        color: $input-color;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 400;
+        height: 100%;
+        width: 100%;
+        color: white;
+
+        #myChart {
+            height: 100%;
+        }
+    }
+}

@@ -9,10 +9,9 @@
 @section('content')
     <div class="menu">
         <a href="{{route('calendar')}}" class="btn-menu text-center">School calendar</a>
+        @if(Auth::user()->role_id === 2)
         <a href="{{route('ncae')}}" class="btn-menu text-center">ncae pre-test</a>
-        @if(auth()->user()->role_id === 3)
-        <a href="{{route('user_violation')}}" class="btn-menu text-center">Student Violation tracker</a>
-        @endif
+        @endIf
         <a  class="button text-center" href="{{ route('logout')}}">Log out</a>
     </div>
 @endsection

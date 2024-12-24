@@ -24,8 +24,9 @@
             <div class="header mb-4">
                 @yield('header')
             </div>
-            <div class="main">
+            <div class="violation-main">
                 <div class="side-nav">
+                    <a href="{{route('violation_index')}}" id="violation-menu-item" class="btn-menu text-center">Violations</a>
                     <a href="{{route('user_violation_register_view')}}" id="register-violation-menu" class="btn-menu text-center">REGISTER VIOLATION</a>
                     <a href="{{route('user_violation_record')}}" id="record-violation-menu" class="btn-menu text-center">STUDENT RECORDS</a>
                     <a href="{{route('user_violation_analysis')}}" id="analysis-violation-menu" class="btn-menu text-center">VIOLATION ANALYSIS</a>

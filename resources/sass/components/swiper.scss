@@ -3,6 +3,19 @@
     width: 100%;
     // padding: 2.5rem;
 
+    &-slide {
+        .slider-content {
+            height: 100%;
+            display: grid;
+            grid-template-rows: min-content repeat(4, 1fr);
+            align-items: stretch;
+
+            h1 {
+                font-size: 3rem;
+            }
+        }
+    }
+
     &-scrollbar-drag {
         background-color: $color-secondary;
     }

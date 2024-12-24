@@ -16,8 +16,8 @@
 @endsection
 
 @section('footer')
-<a class="button w-5 text-center" href="{{ route('user_violation')}}">
-    back
+<a class="button w-5 text-center" href="{{ route('logout')}}">
+    Log Out
 </a>
 @endsection
 

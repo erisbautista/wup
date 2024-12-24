@@ -200,4 +200,15 @@ class ExamController extends Controller
         $result = $this->oNCAEService->deleteChoices($id);
         return response()->json($result);
     }
+
+    public function examStatistics()
+    {
+        $result = $this->oNCAEService->getExamStatistics();
+        // dd($result->toArray());
+        $exams = [
+            'labels' => array_column($result->toArray(), 'new_date'),
+            'data' => array_column($result->toArray(), 'data')
+        ];
+        return view('pages.admin.exam.statistic', compact('exams'));
+    }
 }

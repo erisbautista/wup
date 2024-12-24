@@ -43,6 +43,7 @@
                         <thead>
                             <tr>
                                 <th>Violation</th>
+                                <th>Status</th>
                                 <th>Violation Date</th>
                                 <th>Action</th>
                             </tr>
@@ -55,13 +56,14 @@
 @endsection
 
 @section('footer')
-<a class="button w-5 text-center" href="{{ route('user_violation')}}">
-    back
+<a class="button w-5 text-center" href="{{ route('logout')}}">
+    Log Out
 </a>
 @endsection
 
 @section('script')
 <script>
+    var token = document.getElementsByName("_token")[0].value;
     var datatables = $("#admin-table").DataTable();
     document.addEventListener("DOMContentLoaded", function () {
         $('#record-violation-menu').css('background-color', '#62B485');
@@ -71,6 +73,13 @@
             let id = $(this).data('id');
             window.location.href = "/user/violation/update/" + id
         });
+
+        $('#admin-table').on('click', '#completeViolation', function () {
+            let id = $(this).data('id');
+            completeViolation(id);
+        });
+
+        
     });
     function submitForm(){
         var id = $('#user_id').val();
@@ -80,7 +89,6 @@
             return 0;
         }
         var url = "{{ route('user_violation_record_search') }}";
-        var token = document.getElementsByName("_token")[0].value;
         $.ajax({
             url: url,
             method: 'POST',
@@ -105,6 +113,7 @@
                     data: data.data,
                     columns: [
                         { data: "violation", name: "violation" },
+                        { data: 'status', name: 'status'},
                         { data: 'created_at', name: 'created_at'},
                         { data: 'action', name: 'action', "searchable":false}
                     ],
@@ -112,5 +121,29 @@
             }
         });
     }
+
+    function completeViolation(id)
+        {
+            var url = "{{ route('user_violation_complete', 'id') }}";
+            var token = document.getElementsByName("_token")[0].value;
+            url = url.replace('id', id);
+            $.ajax({
+                url: url,
+                method: 'PUT',
+                data: {
+                        "id": id,
+                        "_method": 'PUT',
+                        "_token": token,
+                },
+                dataType: 'JSON',
+                success: function (data)
+                {
+                    if(data.status === false) {
+                        swal('Error', data.message, 'error')
+                    }
+                    submitForm();
+                }
+            });
+        }
 </script>
 @endsection

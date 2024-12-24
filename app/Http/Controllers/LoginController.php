@@ -45,12 +45,16 @@ class LoginController extends Controller
         $result = $this->oUserService->updateFirstLogin($id, $password);
 
         if ($result['status'] === true){
+            Auth::logout();
+    
+            $request->session()->invalidate();
+        
+            $request->session()->regenerateToken();
             Alert::success('Success', $result['message']);
-            return redirect()->intended(Auth::user()->role_id === 1 ? '/admin/user' : '/home');
+            return redirect('/');
         }
 
-        Alert::error('Error', $result['message']);
-        return redirect()->back()->with($result);
+        return redirect()->back();
     }
 
     public function showResetForm($token, Request $request)
@@ -100,6 +104,7 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
+        $landingPage = '/home';
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required'],
@@ -111,9 +116,15 @@ class LoginController extends Controller
             if(Auth::user()->need_reset === true || Auth::user()->need_reset === 1) {
                 Alert::success('Success', 'Welcome! As it is your first time logging in, please update your password!');
                 return redirect()->intended('/password');
-            }                                                               
+            }
+            if (Auth::user()->role_id === 1) {
+                $landingPage = '/admin/user';
+            }
+            if (Auth::user()->role_id === 4) {
+                $landingPage = '/violation';
+            }
             Alert::success('Success', 'Welcome! You have successfully logged in.');
-            return redirect()->intended(Auth::user()->role_id === 1 ? '/admin/user' : '/home');
+            return redirect()->intended($landingPage);
         }
 
         Alert::error('Error', 'Incorrect username or password');

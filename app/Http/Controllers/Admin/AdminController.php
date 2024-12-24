@@ -45,34 +45,6 @@ class AdminController extends Controller
         return view('pages.admin.user.index');
     }
 
-    public function getViolations(Request $request) 
-    {
-        // $violations = $this->oAdminService->getViolations();
-        // dd($violations);
-        if ($request->ajax()) {
-            $violations = $this->oAdminService->getViolations();
-            return datatables()->of($violations)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-                        
-                        // Update Button
-                        $updateButton = '<button data-id="'.$row->id.'" id="updateViolation" class="button-edit">Edit</button>';
-                        // Delete Button
-                        $deleteButton = '<button class="button-delete"><a href="javascript: deleteViolation('.$row->id.')" data-confirm-delete="true">Delete</a></button>';
-                        return '<div class="action-button">'. $updateButton.$deleteButton . '</div>';
-                    })
-                    ->editColumn('created_at', function($data)
-                    { $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('Y-m-d H:i:s'); return $formatedDate; })
-                ->make(true);
-        }
-
-        $title = 'Delete Violation!';
-        $text = "Are you sure you want to delete?";
-        confirmDelete($title, $text);
-        // Alert::success('test','Test Alert');
-        return view('pages.admin.violation.index');
-    }
-
     public function getHistories(Request $request) 
     {
         // dd($history->toArray());

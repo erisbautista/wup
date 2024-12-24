@@ -19,6 +19,7 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         @yield('style')
         @vite(['resources/sass/main.scss', 'resources/js/app.js'])
     </head>
@@ -30,10 +31,10 @@
             <div class="admin-main">
                 <div class="side-nav">
                     <a href="{{route('admin_user')}}" id="user-menu-item" class="btn-menu text-center">Users</a>
-                    <a href="{{route('admin_violation')}}" id="violation-menu-item" class="btn-menu text-center">Violations</a>
                     <a href="{{route('admin_activity')}}" id="activity-menu-item" class="btn-menu text-center">Activities</a>
                     <a href="{{route('admin_history')}}"id="history-menu-item" class="btn-menu text-center">History</a>
                     <a href="{{route('admin_exam')}}"id="exam-menu-item" class="btn-menu text-center">NCAE Exam</a>
+                    <a href="{{route('admin_exam_statistics')}}"id="exam-statistic-menu-item" class="btn-menu text-center">Exam Statistics</a>
                     <div class="footer">
                         @yield('footer')
                     </div>

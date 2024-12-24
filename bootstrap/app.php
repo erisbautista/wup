@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\CheckIfAdmin;
 use App\Http\Middleware\checkIfAuthenticated;
+use App\Http\Middleware\checkIfOsa;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -17,7 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(fn (Request $request) => route('login'));
 
         $middleware->alias([
-            'admin' => CheckIfAdmin::class
+            'admin' => CheckIfAdmin::class,
+            'osa' => checkIfOsa::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
