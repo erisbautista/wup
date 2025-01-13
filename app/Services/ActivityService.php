@@ -92,4 +92,16 @@ class ActivityService
     {
         return Activity::all();
     }
+
+    public function getAllActivities($year)
+    {
+        return Activity::where( DB::raw('YEAR(start_date)'), '=', $year )->get();
+    }
+
+    public function getActivitiesYear()
+    {
+        return Activity::get()->groupBy(function($q) {
+            return Carbon::parse($q->start_date)->format('Y');
+        });
+    }
 }

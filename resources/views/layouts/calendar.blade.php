@@ -26,7 +26,7 @@
                 <div class="side-nav">
                     <a href="{{route('calendar')}}" id="activity-menu-activity" class="btn-menu text-center">ACTIVITY</a>
                     <a href="{{route('calendar_view')}}" id="activity-menu-calender" class="btn-menu text-center">CALENDAR</a>
-                    <a href="{{route('calendar_feedback')}}" id="activity-menu-feedback" class="btn-menu text-center">FEEDBACK</a>
+                    <a href="{{route('calendar_all')}}" id="activity-menu-feedback" class="btn-menu text-center">All Activities</a>
                 </div>
                 <div class="content">
                     <div class="card">

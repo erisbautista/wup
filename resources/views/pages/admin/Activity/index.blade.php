@@ -14,6 +14,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Active</th>
                             <th>Description</th>
                             <th>Start Date</th>
                             <th>End Date</th>
@@ -46,6 +47,7 @@
             ajax: "{{ route('admin_activity') }}",
             columns: [
                 { data: 'DT_RowIndex', "searchable":false },
+                { data: 'active', name: 'active'},
                 { data: "description", name: "description" },
                 { data: "start_date", name: "start_date" },
                 { data: "end_date", name: "end_date" },
@@ -60,27 +62,64 @@
             let id = $(this).data('id');
             window.location.href = "/activity/" + id
         });
+
+        $('#admin-table').on('click', '#markComplete', function () {
+            let id = $(this).data('id');
+            swal(
+                    {
+                        text: 'Are you sure you want to mark this activity as complete?',
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    }
+                ).then((confirm) => {
+                    if (confirm) {
+                        markComplete(id);
+                    }
+                })
+        });
     });
+    function markComplete(id) {
+        var url = "{{ route('mark_completed', 'id') }}";
+        var token = document.getElementsByName("_token")[0].value;
+        url = url.replace('id', id);
+        $.ajax({
+            url: url,
+            method: 'PUT',
+            data: {
+                    "id": id,
+                    "_method": 'PUT',
+                    "_token": token,
+            },
+            dataType: 'JSON',
+            success: function ()
+            {
+                swal('Success', 'Successfully marked as complete!', 'sucess')
+                window.location.reload()
+            }
+        });
+    }
+
     function deleteActivity(id)
-        {
-            var url = "{{ route('delete_activity', 'id') }}";
-            var token = document.getElementsByName("_token")[0].value;
-            url = url.replace('id', id);
-            $.ajax({
-                url: url,
-                method: 'DELETE',
-                data: {
-                        "id": id,
-                        "_method": 'DELETE',
-                        "_token": token,
-                },
-                dataType: 'JSON',
-                success: function ()
-                {
-                    swal('Success', 'Successfully deleted', 'sucess')
-                    window.location.reload()
-                }
-            });
-        }
+    {
+        var url = "{{ route('delete_activity', 'id') }}";
+        var token = document.getElementsByName("_token")[0].value;
+        url = url.replace('id', id);
+        $.ajax({
+            url: url,
+            method: 'DELETE',
+            data: {
+                    "id": id,
+                    "_method": 'DELETE',
+                    "_token": token,
+            },
+            dataType: 'JSON',
+            success: function ()
+            {
+                swal('Success', 'Successfully deleted', 'sucess')
+                window.location.reload()
+            }
+        });
+    }
     </script>
 @endsection

@@ -33,9 +33,8 @@ Route::middleware(['auth'])->group(function() {
     Route::prefix('calendar')->group(function() {
         Route::get('/', [ActivityController::class, 'getUserActivity'])->name('calendar');
         Route::get('/view', [ActivityController::class, 'getActivities'])->name('calendar_view');
-        Route::get('/feedback', function () {
-            return view('pages.calendar.feedback');
-        })->name('calendar_feedback');
+        Route::get('/all', [ActivityController::class, 'viewAllActivies'])->name('calendar_all');
+        Route::post('/all', [ActivityController::class, 'getAllActivities'])->name('calendar_all_events');
         Route::get('/activity', [ActivityController::class, 'createActivityPage'])->name('calendar_activity');
         Route::post('/activity', [ActivityController::class, 'createActivity'])->name('calendar_activity_create');
     });
@@ -75,6 +74,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('/', [ActivityController::class, 'createActivity'])->name('create_activity');
         Route::get('/{id}', [ActivityController::class, 'getActivityById'])->name('update_activity_view');
         Route::put('/{id}', [ActivityController::class, 'updateActivity'])->name('update_activity');
+        Route::put('/{id}/completed', [ActivityController::class, 'markCompleted'])->name('mark_completed');
         Route::delete('/{id}', [ActivityController::class, 'deleteActivity'])->name('delete_activity');
     });
 

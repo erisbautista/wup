@@ -1,0 +1,140 @@
+.button {
+    border: none;
+    font-family: inherit;
+    color: inherit;
+    font-weight: 600;
+    background-color: $color-secondary;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    border-radius: 4rem;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+}
+
+.button-new {
+    padding: 0.3rem;
+}
+
+.button-edit {
+    border: none;
+    font-family: inherit;
+    color: $color-white;
+    background-color: $color-secondary;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-radius: 3rem;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+}
+
+.button-view {
+    border: none;
+    font-family: inherit;
+    color: $color-white;
+    background-color: $color-primary-dark;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-radius: 3rem;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+}
+
+.button-go {
+    border: none;
+    font-family: inherit;
+    color: $color-white;
+    background-color: $color-secondary;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    border-radius: 3rem;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+}
+
+.button-password-change {
+    border: none;
+    font-family: inherit;
+    color: $color-white;
+    background-color: $color-primary-dark;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-radius: 3rem;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+    grid-column: 1 / 3;
+}
+
+.button-delete {
+    border: none;
+    font-family: inherit;
+    color: $color-white;
+    background-color: red;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-radius: 3rem;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+.btn-menu {
+    border: none;
+    background-color: $color-primary-dark;
+    font-weight: 600;
+    color: inherit;
+    font-size: 1.5rem;
+    padding: 1rem;
+    border-radius: 3rem;
+    text-transform: uppercase;
+    box-shadow: 0 2rem 5rem rgba(#000, 0.2);
+    cursor: pointer;
+}
+
+.action-button-one {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.action-button {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem;
+}
+
+.action-button-three {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content min-content;
+    grid-template-areas:
+        "first second"
+        "third third";
+    grid-gap: 0.5rem;
+}
+
+.button-first {
+    grid-area: first;
+}
+
+.button-second {
+    grid-area: second;
+}
+
+.button-third {
+    grid-area: third;
+}

@@ -1,0 +1,176 @@
+.calendar-home {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+    padding: 0.5rem;
+
+    .section {
+        display: grid;
+        grid-template-rows: min-content 13rem;
+
+        .heading {
+            background-color: $color-primary-dark;
+            padding: 0.5rem;
+            border-radius: 3rem;
+            font-family: inherit;
+            font-weight: 600;
+            text-transform: uppercase;
+            width: 16.5rem;
+            font-size: 1.3rem;
+            box-shadow: 0 2rem 5rem rgb(#000, 0.2);
+        }
+
+        .activity-wrapper {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+
+            .activity {
+                background-color: $color-primary-light;
+                margin: 1rem;
+                display: grid;
+                justify-content: center;
+                align-content: center;
+                min-width: 20rem;
+
+                &-title {
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+.calendar-feedback {
+    height: 100%;
+
+    &-form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    &-header {
+        font-size: 1rem;
+        font-family: inherit;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &-body {
+        padding: 1.5rem;
+        width: 100%;
+        flex: 1;
+
+        .feedback-input {
+            background-color: $color-primary-light;
+            width: 100%;
+            height: 30vh;
+        }
+    }
+
+    &-footer {
+        display: flex;
+        flex-direction: row-reverse;
+        padding-right: 1.5rem;
+
+        .feedback-submit {
+            text-transform: uppercase;
+            font-family: inherit;
+            font-weight: 700;
+            color: $color-white;
+            background-color: $color-primary-dark;
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 4rem;
+            border: none;
+            box-shadow: 0 2rem 5rem rgb(#000, 0.2);
+        }
+    }
+}
+
+.calendar {
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    grid-template-columns: 1fr;
+    justify-items: center;
+
+    &-header {
+        display: grid;
+        grid-template-areas: "left mid right";
+        width: 60vw;
+        justify-content: space-between;
+        align-items: center;
+
+        &-back {
+            grid-area: left;
+        }
+
+        &-title {
+            grid-area: mid;
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        &-new {
+            grid-area: right;
+        }
+    }
+
+    &-wrapper {
+        width: 60vw;
+    }
+}
+
+.calendar-print {
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: min-content max-content;
+    width: 100%;
+
+    &-header {
+        text-align: center;
+
+        &-title {
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+    }
+
+    &-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .events {
+            padding: 0 2rem;
+
+            .details {
+                background: white;
+                color: black;
+
+                &-month {
+                    font-size: 2.5rem;
+                    font-weight: 800;
+                    background: grey;
+                }
+
+                &-event {
+                    font-size: 1.5rem;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0.5rem;
+                }
+            }
+        }
+    }
+}
+
+#calendar {
+    background-color: $color-white;
+    color: $input-color;
+    padding: 1rem;
+    height: 100%;
+}

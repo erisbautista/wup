@@ -38,7 +38,7 @@ class ActivityController extends Controller
 
         if ($result['status'] === true){
             Alert::success('Success', $result['message']);
-            return redirect()->back()->with($result);
+            return redirect()->route('calendar_view');
         }
 
         Alert::error('Error', $result['message']);
@@ -50,6 +50,29 @@ class ActivityController extends Controller
         $activities = $this->oActivityService->getActivityById($id);
 
         return view('pages.admin.activity.update', compact('activities'));
+    }
+
+    public function updateActivity(Request $request, $id)
+    {
+        $data = $this->removeMethod($request->all());
+        $data = $this->removeToken($data);
+        
+        $result = $this->oActivityService->updateActivity($data, $id);
+        dd($result);
+        if ($result['status'] === true){
+            Alert::success('Success', $result['message']);
+            return redirect()->back()->with($result);
+        }
+
+        Alert::error('Error', $result['message']);
+        return redirect()->back()->with($result);
+    }
+
+    public function markCompleted($id)
+    {
+        $data = ['active' => false];
+        $result = $this->oActivityService->updateActivity($data, $id);
+        return response()->json($result);
     }
 
     public function deleteActivity($id)
@@ -71,21 +94,39 @@ class ActivityController extends Controller
     public function getActivities()
     {
         $activities = $this->oActivityService->getActivities();
-
-        $activities = $this->formatActivity($activities);
+        $activities = $this->formatActivity($activities, false, 'auto');
 
         return view('pages.calendar.view', compact('activities'));
     }
 
-    private function formatActivity($activities)
+    public function viewAllActivies()
     {
+        $years = $this->oActivityService->getActivitiesYear();
+        $years = array_keys($years->toArray());
+        return view('pages.calendar.print', compact('years'));
+    }
+
+    public function getAllActivities(Request $request)
+    {
+        $activities = $this->oActivityService->getAllActivities($request->year);
+        $activities = $this->formatActivity($activities, true, 'background');
+
+        return response()->json($activities);
+    }
+
+    private function formatActivity($activities,$duration, $display)
+    {
+        
         $formattedData = [];
         foreach($activities as $activity) {
             array_push($formattedData, [
                 'title' => $activity['description'],
                 'start' => $activity['start_date'],
                 'end' => $activity['end_date'],
-                'allDay' => false
+                'allDay' => $duration,
+                'backgroundColor' => $activity['active'] === false || $activity['active'] === 0 ? 'gray' : '',
+                'color' => $display === 'background' && ($activity['active'] === false || $activity['active'] === 0) ? 'grey' : '',
+                'display' => $display
             ]);
         }
         return $formattedData;

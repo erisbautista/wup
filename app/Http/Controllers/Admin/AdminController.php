@@ -80,10 +80,10 @@ class AdminController extends Controller
                     ->addColumn('action', function($row){
                         
                         // Update Button
-                        $updateButton = '<button data-id="'.$row->id.'" id="updateExam" class="button-edit">Edit</button>';
-                        $previewButton = '<button data-id="'.$row->id.'" id="viewExam" class="button-view">View</button>';
+                        $updateButton = '<button data-id="'.$row->id.'" id="updateExam" class="button-edit button-first">Edit</button>';
+                        $previewButton = '<button data-id="'.$row->id.'" id="viewExam" class="button-view button-second">View</button>';
                         // Delete Button
-                        $deleteButton = '<button class="button-delete"><a href="javascript: deleteExam('.$row->id.')" data-confirm-delete="true">Delete</a></button>';
+                        $deleteButton = '<button class="button-delete button-third"><a href="javascript: deleteExam('.$row->id.')" data-confirm-delete="true">Delete</a></button>';
                         return '<div class="action-button-three">'. $updateButton. $previewButton .$deleteButton . '</div>';
                     })
                     ->editColumn('created_at', function($data)
@@ -105,11 +105,18 @@ class AdminController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
                                 
+                        $markCompleteButton = '';
                         // Update Button
-                        $updateButton = '<button data-id="'.$row->id.'" id="updateActivity" class="button-edit">Edit</button>';
+                        $updateButton = '<button data-id="'.$row->id.'" id="updateActivity" class="button-edit button-first">Edit</button>';
                         // Delete Button
-                        $deleteButton = '<button class="button-delete"><a href="javascript: deleteActivity('.$row->id.')" data-confirm-delete="true">Delete</a></button>';
-                        return '<div class="action-button">'. $updateButton.$deleteButton . '</div>';
+                        $deleteButton = '<button class="button-delete button-second"><a href="javascript: deleteActivity('.$row->id.')" data-confirm-delete="true">Delete</a></button>';
+                        if ($row->active === true || $row->active === 1) {
+                            $markCompleteButton = '<button data-id="'.$row->id.'" id="markComplete" class="button-view button-third">Mark as Complete</button>';
+                        }
+                        return '<div class="action-button-three">'. $updateButton.$deleteButton.$markCompleteButton. '</div>';
+                    })
+                    ->editColumn('active', function($data) {
+                        return $data['active'] === 1 || $data['active'] === true ? 'true' : 'false';
                     })
                     ->editColumn('user_id', function($data)
                     { return $data['user']->first_name . ' ' . $data['user']->middle_name . ' ' . $data['user']->last_name; })

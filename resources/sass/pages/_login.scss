@@ -1,0 +1,54 @@
+.login-form {
+    .form-group {
+        margin: 1rem 0;
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        grid-gap: 0.5rem;
+        justify-items: end;
+    }
+
+    .form-footer {
+        display: grid;
+        justify-content: flex-end;
+        justify-items: end;
+
+        .login {
+            margin-right: 2.5rem;
+        }
+
+        a {
+            color: $color-white;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.reset-form {
+    width: 15vw;
+
+    .form-group {
+        margin: 1rem 0;
+        display: grid;
+    }
+
+    .form-footer {
+        display: grid;
+        justify-items: end;
+    }
+
+    .form-label {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    a {
+        color: $color-white;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
