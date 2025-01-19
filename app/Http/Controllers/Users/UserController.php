@@ -101,6 +101,7 @@ class UserController extends Controller
             }
             $status['inserted']++;
         }
+        fclose($fileStream);
         Storage::disk('public')->delete($storedFile);
         Alert::info('info', 'Import completed successfully with the following status: inserted = '. $status['inserted'] . ', skipped = '.$status['skipped']['count']);
         return redirect()->route('admin_user'); 
