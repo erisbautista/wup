@@ -1,6 +1,6 @@
 .admin-main {
     display: grid;
-    grid-template-columns: minmax(min-content, 30rem) minmax(50rem, min-content);
+    grid-template-columns: minmax(min-content, 30rem) minmax(50rem, max-content);
     max-height: 50rem;
 
     .side-nav {

@@ -138,17 +138,38 @@
             font-weight: 800;
             text-transform: uppercase;
         }
+
+        &-back {
+            display: block;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            border: none;
+            font-family: inherit;
+            color: inherit;
+            font-weight: 600;
+            background-color: $color-secondary;
+            padding: 0.5rem;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            box-shadow: 0 2rem 5rem rgb(#000, 0.3);
+        }
     }
 
     &-wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        height: 75vh;
 
         .events {
             padding: 0 2rem;
+            height: 100%;
+            overflow-y: auto;
 
             .details {
-                background: white;
+                padding: 1rem;
                 color: black;
 
                 &-month {
@@ -162,6 +183,7 @@
                     display: flex;
                     justify-content: space-between;
                     padding: 0.5rem;
+                    background: white;
                 }
             }
         }

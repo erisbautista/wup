@@ -204,10 +204,14 @@ class ExamController extends Controller
     public function examStatistics()
     {
         $result = $this->oNCAEService->getExamStatistics();
+        $data = array();
+        foreach($result as $exams) {
+            array_push($data, $exams->count());
+        }
         // dd($result->toArray());
         $exams = [
-            'labels' => array_column($result->toArray(), 'new_date'),
-            'data' => array_column($result->toArray(), 'data')
+            'labels' => array_keys($result->toArray()),
+            'data' => $data
         ];
         return view('pages.admin.exam.statistic', compact('exams'));
     }

@@ -126,7 +126,8 @@ class ActivityController extends Controller
                 'allDay' => $duration,
                 'backgroundColor' => $activity['active'] === false || $activity['active'] === 0 ? 'gray' : '',
                 'color' => $display === 'background' && ($activity['active'] === false || $activity['active'] === 0) ? 'grey' : '',
-                'display' => $display
+                'display' => $display,
+                'event_type' => 'event'
             ]);
         }
         return $formattedData;

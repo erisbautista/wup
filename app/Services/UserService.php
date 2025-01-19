@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
+use App\Jobs\ProcessImportJob;
 use App\Models\User;
 use App\Models\ParentDetails;
-use App\Notifications\AccountCreationNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -22,16 +22,16 @@ class UserService {
     {
         try{
             DB::beginTransaction();
-            $OTP = Str::random(8);
+            $OTP = Str::random(12);
             $data['user']['password'] = $OTP;
             $user = User::create($data['user']);
-            $user->notify(new AccountCreationNotification($user, $OTP));
             if (!empty($data['parent'])) {
                 $data['parent']['user_id'] = $user->id;
                 ParentDetails::create($data['parent'])->id;
             }
-
+            
             DB::commit();
+            dispatch(new ProcessImportJob($user, $OTP));
 
             return [
                 'status' => true,

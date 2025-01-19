@@ -7,6 +7,7 @@ use App\Services\UserService;
 use App\Services\UserViolationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -14,6 +15,20 @@ class UserController extends Controller
     public $oUserService;
 
     public $oUserViolationService;
+
+    public $importMapping = [
+        'first_name' => 0,
+        'middle_name' => 1,
+        'last_name' => 2,
+        'email' => 3,
+        'level' => 4,
+        'username' => 5,
+        'role_id' => 6,
+        'parent_first_name' => 7,
+        'parent_middle_name' => 8,
+        'parent_last_name' => 9,
+        'parent_email' => 10
+    ];
 
     public $parentFields = [
         'parent_first_name',
@@ -33,11 +48,76 @@ class UserController extends Controller
         return view('pages.admin.user.create');
     }
 
+    public function import()
+    {
+        return view('pages.admin.user.import');
+        
+    }
+
+    public function importUsers(Request $request)
+    {
+        $storedFile = $request->input('file_import');
+        $fileStream = fopen(storage_path('app/public/'. $storedFile), 'r');
+        $skipHeader = true;
+        $status = [
+            'inserted' => 0,
+            'skipped' => [
+                'count' => 0,
+                'message' => []
+            ]
+        ];
+        while ($row = fgetcsv($fileStream)) {
+            if ($skipHeader) {
+                $skipHeader = false;
+                continue;
+            }
+            $data = [
+                'user' => [
+                    'first_name' => $row[$this->importMapping['first_name']],
+                    'middle_name' => $row[$this->importMapping['middle_name']],
+                    'last_name' => $row[$this->importMapping['last_name']],
+                    'level' => $row[$this->importMapping['level']],
+                    'email' => $row[$this->importMapping['email']],
+                    'username' => $row[$this->importMapping['username']],
+                    'role_id' => $row[$this->importMapping['role_id']],
+                ],
+            ];
+            if ($row[$this->importMapping['role_id']] === '2') {
+                $data['parent'] = [
+                    'first_name' => $row[$this->importMapping['parent_first_name']],
+                    'middle_name' => $row[$this->importMapping['parent_middle_name']],
+                    'last_name' => $row[$this->importMapping['parent_last_name']],
+                    'email' => $row[$this->importMapping['parent_email']]
+                ];
+            } else {
+                $data['parent'] = [];
+            }
+            $result = $this->oUserService->createUser($data);
+        
+            if ($result['status'] === false) {
+                $status['skipped']['count']++;
+                array_push($status['skipped']['message'],$result['message']);
+                continue;
+            }
+            $status['inserted']++;
+        }
+        Storage::disk('public')->delete($storedFile);
+        Alert::info('info', 'Import completed successfully with the following status: inserted = '. $status['inserted'] . ', skipped = '.$status['skipped']['count']);
+        return redirect()->route('admin_user'); 
+    }
+
+    public function downloadTemplate()
+    {
+        return response()->download(storage_path('app\public\users.csv'));
+    }
+
     public function createUser(Request $request)
     {
         $data = $this->refactorData($request->all());
+        // dd($data);
         
         $result = $this->oUserService->createUser($data);
+        
         
         if ($result['status'] === true){
             Alert::success('Success', $result['message']);

@@ -5,6 +5,7 @@
 @section('admin-content')
     <div class="user">
         <div class="user-header">
+            <a href="{{ route('import_user_page')}}" class="button w-2 text-center button-new">Import</a>
             <a href="{{ route('create_user')}}" class="button w-2 text-center button-new">New</a>
         </div>
         <div class="user-body">

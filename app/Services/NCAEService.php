@@ -38,11 +38,15 @@ class NCAEService
 
     public function getExamStatistics()
     {
-        return UserExam::selectRaw('year(created_at) year, monthname(created_at) month,
-        min(DATE_FORMAT(created_at, "%M-%Y")) AS new_date, count(*) data')
-        ->groupBy('year', 'month')
-        ->orderBy('created_at', 'asc')
-        ->get();
+        // return UserExam::selectRaw('year(created_at) year, monthname(created_at) month,
+        // min(DATE_FORMAT(created_at, "%M-%Y")) AS new_date, count(*) data')
+        // ->groupBy('year', 'month')
+        // ->orderBy('created_at', 'asc')
+        // ->get();
+        
+        return UserExam::orderBy('created_at', 'asc')->get()->groupBy(function($date) {
+            return Carbon::parse($date->created_at)->format('M-Y');
+        });
 
     }
 

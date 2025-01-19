@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Activity\ActivityController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NCAE\ExamController;
 use App\Http\Controllers\NCAE\NCAEController;
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/template/download', [UserController::class, 'downloadTemplate'])->name('download_template');
+Route::post('upload', [FileController::class, 'upload'])->name('upload');
+Route::delete('revert', [FileController::class, 'revert'])->name('revert');
 
 Route::prefix('password')->group(function() {
     Route::get('/', [LoginController::class, 'firstLogin'])->name('password.first.login');
@@ -56,6 +60,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('user')->group(function() {
         Route::get('/create', [UserController::class, 'index'])->name('create_user');
         Route::post('/', [UserController::class, 'createUser']);
+        Route::get('/import', [UserController::class, 'import'])->name('import_user_page');
+        Route::post('/import', [UserController::class, 'importUsers'])->name('import_user');
         Route::get('/{id}', [UserController::class, 'getUserById']);
         Route::put('/{id}', [UserController::class, 'updateUser'])->name('update_user');
         Route::delete('/{id}', [UserController::class, 'deleteUser'])->name('delete_user');

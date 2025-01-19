@@ -50,13 +50,15 @@ class AdminController extends Controller
         // dd($history->toArray());
         if ($request->ajax()) {
             $history = $this->oAdminService->getHistories();
+            if ($history->count() === 0) {
+                return datatables()->of($history)
+                    ->addIndexColumn()
+                ->make(true);
+            }
             return datatables()->of($history)
                     ->addIndexColumn()
-                    ->editColumn('from', function($data) {
-                        return 'Category ' . $data->violation1->category_no . ', ' . $data->violation1->name;
-                    })
-                    ->editColumn('to', function($data) {
-                        return 'Category ' . $data->violation2->category_no . ', ' . $data->violation2->name;
+                    ->editColumn('record', function($data) {
+                        return 'Table: ' . $data->table_name . ', Field: ' . $data->field;
                     })
                     ->editColumn('user_id', function($data) {
                         return $data->user->username;

@@ -23,6 +23,9 @@
         <div class="calendar-print">
             @csrf
             <div class="calendar-print-header mb-2">
+                <a class="calendar-print-header-back w-3 text-center" href="{{ route('calendar')}}">
+                    back
+                </a>
                 <h1 class="calendar-print-header-title">Yearly Schedule of Events</h1>
                 <select name="year" id="year" class="input-select">
                     <option value="">Select Year</option>
@@ -34,31 +37,7 @@
             <div class="card">
                 <div class="calendar-print-wrapper">
                     <div id="calendar"></div>
-                    <div class="events">
-                        <div class="details">
-                            <h1 class="details-month">January</h1>
-                            <div class="details-event">
-                                <span class="details-event-date">01/01/13 (Tue)</span>
-                                <span class="details-event-title">New Year's Day</span>
-                                <span class="details-event-type">Holiday</span>
-                            </div>
-                            <div class="details-event">
-                                <span class="details-event-date">01/21/13 (Mon)</span>
-                                <span class="details-event-title">Martin Luther King Jr. Day</span>
-                                <span class="details-event-type">Holiday</span>
-                            </div>
-                            <div class="details-event">
-                                <span class="details-event-date">01/02/13 (We)</span>
-                                <span class="details-event-title">Birthday</span>
-                                <span class="details-event-type">Note</span>
-                            </div>
-                            <div class="details-event">
-                                <span class="details-event-date">01/01/13 (Tue)</span>
-                                <span class="details-event-title">New Year's Day</span>
-                                <span class="details-event-type">Holiday</span>
-                            </div>
-                        </div>
-                        
+                    <div class="events" id="event_details">                        
                     </div>
                 </div>
             </div>
@@ -87,9 +66,12 @@
             });
 
             function getAllActivities(year){
+                $('#event_details').empty();
                 var activities = [];
                 var events;
+                var event_details;
                 if(year === '' || year === null) {
+                    calendar.destroy();
                     return 0;
                 }
                 let holidays = getHolidays(year);
@@ -106,9 +88,47 @@
                     {
                         activities = data;
                         events = $.merge(activities, holidays);
+                        event_details = groupByMonth(events);
+                        renderEventDetails(event_details);
                         renderCalendar(events, year);
                     }
                 });
+            }
+
+            function groupByMonth(events) {
+                var months = {'January' : [],
+                 'February' : [], 
+                 'March' : [], 
+                 'April' : [], 
+                 'May' : [], 
+                 'June' : [], 
+                 'July' : [], 
+                 'August' : [], 
+                 'September' : [], 
+                 'October' : [],
+                 'November' : [],
+                 'December' : []};
+                events.map(function(event) {
+                    let month = moment(event.start).format('MMMM')
+                    months[month].push(event);
+                });
+                return months;
+            }
+
+            function renderEventDetails(events) {
+                $.each(events, function(month, event) {
+                    $('#event_details').append('<div class="details" id="'+month+'"><h1 class="details-month">'+ month +'</h1></div>');
+                    console.log(event);
+                    $.each(event, function(index, event_entry) {
+                        console.log(event_entry);
+                        $('#'+month).append(`<div class="details-event">
+                                <span class="details-event-date">${moment(event_entry.start).format('MM/DD/YYYY (ddd)')}</span>
+                                <span class="details-event-title">${event_entry.title}</span>
+                                <span class="details-event-type">${event_entry.event_type === 'event' ? 'event' : 'Holiday'}</span>
+                            </div>`);
+                    })
+                })
+
             }
 
             function renderCalendar(events, year) {

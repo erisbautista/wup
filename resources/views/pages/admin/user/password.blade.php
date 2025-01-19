@@ -41,6 +41,10 @@
             $('#confirm_password').focusout(function() {
                 var confirm_password = $(this).val();
                 var password = $('#password').val();
+                if(checkLength(confirm_password) === false) {
+                    swal('Password should have more than 12 characters', '', 'error');
+                    return 0;
+                }
                 if(password === '' || password === null || $(this).val() === null || $(this).val() === '') {
                     return 0;
                 }
@@ -48,21 +52,45 @@
                 if(password === confirm_password) {
                     return 0;
                 }
+                if(checkIfMatch(password, confirm_password)) {
+                    swal('Password Mismatch', '', 'error');
+                }
                 swal('Password Mismatch', '', 'error');
                 $(this).val('');
             })
             $('#password').focusout(function() {
                 var password = $(this).val();
                 var confirm_password = $('#confirm_password').val();
+                if(checkLength(password) === false) {
+                    swal('Password should have more than 12 characters', '', 'error');
+                    return 0;
+                }
                 if(confirm_password === '' || confirm_password === null || $(this).val() === null || $(this).val() === '') {
                     return 0;
                 }
                 if(password === confirm_password) {
                     return 0;
                 }
-                swal('Password Mismatch', '', 'error');
+                if(checkIfMatch(password, confirm_password)) {
+                    swal('Password Mismatch', '', 'error');
+                }
                 $(this).val('');
             })
         })
+        function checkLength(str) {
+            if(str.length < 12) {
+                return false;
+            }
+
+            return true
+        }
+
+        function checkIfMatch(str1, str2) {
+            if(str1 === str2) {
+                return true;
+            }
+
+            return false;
+        }
     </script>
 @endsection

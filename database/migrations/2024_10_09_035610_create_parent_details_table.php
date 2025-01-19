@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('parent_details', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable()->default('');
             $table->string('last_name');
             $table->string('email');
             $table->unsignedBigInteger('user_id');
