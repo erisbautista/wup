@@ -42,7 +42,7 @@
             var confirm_password = $(this).val();
             var password = $('#password').val();
             if(checkLength(confirm_password) === false) {
-                swal('Password should have more than 12 characters', '', 'error');
+                swal('Password should have more than 8 characters', '', 'error');
                 return 0;
             }
             if(password === '' || password === null || $(this).val() === null || $(this).val() === '') {
@@ -62,7 +62,7 @@
             var password = $(this).val();
             var confirm_password = $('#password_confirmation').val();
             if(checkLength(password) === false) {
-                swal('Password should have more than 12 characters', '', 'error');
+                swal('Password should have more than 8 characters', '', 'error');
                 return 0;
             }
             if(confirm_password === '' || confirm_password === null || $(this).val() === null || $(this).val() === '') {
