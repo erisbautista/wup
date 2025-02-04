@@ -12,6 +12,15 @@ class ExamController extends Controller
 {
     public $oNCAEService;
 
+    public $chartColor = [
+        'tvl' => '#006d77',
+        'stem' => '#e85d04',
+        'humss' => '#52796f',
+        'abm' => '#a68a64',
+        'gas' => '#800e13'
+    ];
+
+
     public function __construct(NCAEService $oNCAEService)
     {
         $this->oNCAEService = $oNCAEService;
@@ -205,9 +214,12 @@ class ExamController extends Controller
     {
         $result = $this->oNCAEService->getExamStatistics();
         $data = array();
+        // dd($result->toArray());
+
         foreach($result as $exams) {
             array_push($data, $exams->count());
         }
+        // dd($data);
         // dd($result->toArray());
         $exams = [
             'labels' => array_keys($result->toArray()),

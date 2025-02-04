@@ -22,7 +22,7 @@ class UserService {
     {
         try{
             DB::beginTransaction();
-            $OTP = Str::random(12);
+            $OTP = Str::random(8);
             $data['user']['password'] = $OTP;
             $user = User::create($data['user']);
             if (!empty($data['parent'])) {

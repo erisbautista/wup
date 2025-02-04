@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::table('user_exams', function (Blueprint $table) {
             $table->dropColumn('result');
-            $table->dropForeign(['exam_id']);
-            $table->dropColumn('exam_id');
         });
     }
 
@@ -25,7 +23,6 @@ return new class extends Migration
     {
         Schema::table('user_exams', function (Blueprint $table) {
             $table->string('result');
-            $table->unsignedBigInteger('exam_id');
         });
     }
 };

@@ -47,8 +47,9 @@ Route::middleware(['auth'])->group(function() {
     Route::prefix('ncae')->group(function() {
         Route::get('/', [NCAEController::class, 'index'])->name('ncae');
         Route::get('/strand', [NCAEController::class, 'strands'])->name('ncae_strand');
+        Route::get('/strand/selection', [NCAEController::class, 'getStrands'])->name('ncae_strand_selection');
         Route::get('/career', [NCAEController::class, 'career'])->name('ncae_career');
-        Route::get('/test', [NCAEController::class, 'NCAETest'])->name('ncae_test');
+        Route::get('/test/{id}', [NCAEController::class, 'NCAETest'])->name('ncae_test');
         Route::post('/test', [NCAEController::class, 'submitTest'])->name('ncae_test_submit');
         Route::get('/result', [NCAEController::class, 'result'])->name('ncae_result');
     });

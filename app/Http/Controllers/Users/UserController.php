@@ -109,7 +109,7 @@ class UserController extends Controller
 
     public function downloadTemplate()
     {
-        return response()->download(storage_path('app\public\users.csv'));
+        return response()->download(storage_path('app/public/users.csv'));
     }
 
     public function createUser(Request $request)

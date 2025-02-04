@@ -43,25 +43,14 @@
     var data = {!! json_encode($data) !!};
     document.addEventListener("DOMContentLoaded", function () {
         $('#ncae-stats-menu').css('background-color', '#62B485');
+        console.log(data);
         const ctx = document.getElementById('myChart');
-        let labels = data.labels;
-        let score = data.score;
+        let dataset = data.dataset;
 
         new Chart(ctx, {
         type: 'line',
         data: {
-        labels: labels,
-        datasets: [{
-            label: 'Score',
-            backgroundColor: '#df8d39',
-            borderColor: '#df8d39',
-            pointBorderColor: '#df8d39',
-            pointBackgroundColor: '#df8d39',
-            pointHoverBackgroundColor: '#fff',
-            data: score,
-            borderWidth: 1,
-            tension: .3
-        }]
+        datasets: dataset
         },
         options: {
             scales: {

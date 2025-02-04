@@ -14,6 +14,14 @@ class NCAEController extends Controller
 {
     public $oNCAEService;
 
+    public $chartColor = [
+        'tvl' => '#006d77',
+        'stem' => '#e85d04',
+        'humss' => '#52796f',
+        'abm' => '#a68a64',
+        'gas' => '#800e13'
+    ];
+
 
     public function __construct(NCAEService $oNCAEService)
     {
@@ -31,31 +39,37 @@ class NCAEController extends Controller
         return view('pages.ncae.strand', compact('strands'));
     }
 
+    public function getStrands()
+    {
+        $strands = $this->oNCAEService->getStrands();
+        return view('pages.ncae.menu', compact('strands'));
+    }
+
     public function career()
     {
         $strands = $this->oNCAEService->getStrands();
         return view('pages.ncae.career', compact('strands'));
     }
 
-    public function ncaeTest()
+    public function ncaeTest($id)
     {
-        $checkUserExam = $this->oNCAEService->getCheckUserExam(Auth::user()->id);
-        $questions = $this->oNCAEService->getExams();
-        // dd($exams->toArray());
+        $exam = $this->oNCAEService->getExams($id);
+        $questions = $this->oNCAEService->getQuestionsByExamId($exam->id);
         return view('pages.ncae.test', compact('questions'));
     }
 
     public function submitTest(Request $request)
     {
         $data = $this->removeToken($request->all());
+        $exam_id = $data['data'][0]['exam_id'];
         $answers = array_column($data['data'], 'answer');
         $answers = $this->removeNull($answers);
-        // dd($answers);
         $result = ['status' => true];
         $count = $this->oNCAEService->checkAnswer($answers);
 
         $exam_data = [
             'score' => $count,
+            'exam_id' => $exam_id,
             'user_id' => Auth::user()->id,
         ];
         $submitExamResult = $this->oNCAEService->createUserExam($exam_data);
@@ -68,20 +82,35 @@ class NCAEController extends Controller
     public function result()
     {
         $label = [];
-        $scoreData = [];
+        $dataSet = [];
         $exams = $this->oNCAEService->result(Auth::user()->id);
-        // dd(count($exams->toArray()));
+        // dd($exams->toArray());
         if(count($exams->toArray()) !== 0) {
-            foreach ($exams as $key => $value) {
-                $scoreData[] = $value->score;
-                $label[] = Carbon::parse($value->created_at)->format('F d, Y');
+            foreach ($exams as $key => $strandExams) {
+                $dataSet[$key] = [
+                    'label' => $key,
+                    'backgroundColor' => $this->chartColor[$key],
+                    'borderColor' => $this->chartColor[$key],
+                    'pointBorderColor' => $this->chartColor[$key],
+                    'pointBackgroundColor' => $this->chartColor[$key],
+                    'pointHoverBackgroundColor' => '#fff',
+                    'borderWidth' => 1,
+                    'tension' => .3
+                ];
+                foreach ($strandExams as $strandKey => $value) {
+                    $date = Carbon::now();
+                    $dataSet[$key]['data'][] = [
+                        'x' => $date->addDays($strandKey + 1)->format('M d'),
+                        'y' => $value->score
+                    ];
+                }
             }
         }
 
         $data = [
-            'labels' => $label,
-            'score' => $scoreData
+            'dataset' => array_values($dataSet)
         ];
+        // dd($data);
         
         return view('pages.ncae.result', compact('data'));
     }

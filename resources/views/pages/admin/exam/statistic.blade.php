@@ -31,7 +31,7 @@
             let data = exams.data;
 
             new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                 labels: labels,
                 datasets: [{

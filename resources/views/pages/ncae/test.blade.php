@@ -66,6 +66,7 @@
             var question_length;
             var exam_data = {!! json_encode($questions) !!};
             var data = [];
+            var exam_id = exam_data[0].exam_id;
             var token = document.getElementsByName("_token")[0].value;
             $(document).ready(function () {
                 // $('#exam-menu-item').css('background-color', '#62B485');
@@ -140,7 +141,6 @@
                         count++;
                     }
                 })
-                console.log(data);
 
                 if( count > 0 ) {
                     text = 'There are '+ count + ' more questions to answer! Are you sure you want to submit the form?';

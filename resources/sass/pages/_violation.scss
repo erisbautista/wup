@@ -1,7 +1,7 @@
 .main {
     display: grid;
     grid-template-columns: minmax(min-content, 30rem) 50rem;
-    grid-template-rows: min-content 1fr;
+    grid-template-rows: max-content 1fr;
 
     .side-nav {
         display: flex;
@@ -26,7 +26,7 @@
 
 .violation-main {
     display: grid;
-    grid-template-columns: minmax(min-content, 30rem) 60rem;
+    grid-template-columns: minmax(min-content, 30rem) minmax(60rem, max-content);
     grid-template-rows: min-content 1fr;
 
     .side-nav {

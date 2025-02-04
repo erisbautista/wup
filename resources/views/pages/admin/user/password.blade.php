@@ -78,7 +78,7 @@
             })
         })
         function checkLength(str) {
-            if(str.length < 12) {
+            if(str.length < 8) {
                 return false;
             }
 
