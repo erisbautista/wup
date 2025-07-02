@@ -4,7 +4,7 @@
         display: grid;
         grid-template-columns: min-content 1fr;
         grid-gap: 0.5rem;
-        justify-items: end;
+        justify-items: stretch;
     }
 
     .form-footer {
@@ -25,6 +25,67 @@
         }
     }
 }
+
+#dialog {
+    display: none;
+}
+
+.about {
+    // width: 40rem;
+    // height: 20rem;
+    &-description {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    &-credits {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+
+    &-copyright {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    &-us {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+
+        button {
+            outline: none;
+            background: none;
+            font-size: 2rem;
+            text-transform: uppercase;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            color: $color-white;
+
+            &:hover {
+                transform: translateY(-3px);
+                color: rgb(226, 225, 225);
+            }
+        }
+    }
+}
+
+.ui-dialog-title {
+    font-size: 1.5rem;
+}
+
+// .ui-widget {
+//     &-content {
+//         background-color: $color-primary-light;
+//         color: $color-white;
+//     }
+
+//     &-header {
+//         background-color: $color-primary-light;
+//         color: $color-white;
+//     }
+// }
 
 .reset-form {
     width: 15vw;

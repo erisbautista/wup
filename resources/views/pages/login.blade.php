@@ -35,4 +35,34 @@
             </form>
         </div>
     </div>
+    <div class="about-us">
+        <button id="openDialog">About Us</button>
+    </div>
+
+    <div id="dialog" title="ABOUT EDUGUARD" class="about">
+        <p class="about-description"><strong>EduGuard</strong> is an all-in-one student support system that combines career guidance, a school activity calendar, and a violation tracker with automated parental alerts—designed to improve communication, accountability, and student decision-making.</p>
+        <p class="about-credits">Developed by Lynel Jose Buan, Mark Anthony Franco, and Vincent Cuaresma.</p>
+        <p class="about-copyright">© 2025 EduGuard. All rights reserved.</p>
+    </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function () {
+            // Initialize the dialog but keep it closed
+            $("#dialog").dialog({
+                draggable: false,
+                resizable: false,
+                height: 300,
+                width: 700,
+                autoOpen: false,
+            });
+
+            // Open the dialog on button click
+            $("#openDialog").click(function () {
+                console.log("I'm clicked");
+                $("#dialog").dialog("open");
+            });
+        });
+</script>
 @endsection

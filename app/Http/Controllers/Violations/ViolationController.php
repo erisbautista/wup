@@ -82,11 +82,11 @@ class ViolationController extends Controller
 
         if ($result['status'] === true){
             Alert::success('Success', $result['message']);
-            return redirect()->route('admin_violation');
+            return redirect()->route('violation_index');
         }
 
         Alert::error('Error', $result['message']);
-        return redirect()->back()->with($result); ;
+        return redirect()->back()->with($result);
     }
 
     public function deleteViolation($id)

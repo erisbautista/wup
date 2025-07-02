@@ -12,8 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class NCAEService
-{
-
+{    
     public function getStrands()
     {
         return Strand::all();
@@ -41,9 +40,9 @@ class NCAEService
         return UserExam::where('user_id', $id)->count();
     }
 
-    public function getExamStatistics()
-    {        
-        return UserExam::with('exam.strand')->get()->groupBy('exam.strand.name');
+    public function getExamStatistics($year)
+    {
+        return UserExam::with('exam.strand')->whereYear('created_at', $year)->get()->groupBy('exam.strand.name');
     }
 
     public function checkAnswer($answer)

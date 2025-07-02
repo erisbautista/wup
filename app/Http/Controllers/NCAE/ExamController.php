@@ -12,6 +12,8 @@ class ExamController extends Controller
 {
     public $oNCAEService;
 
+    private $months;
+
     public $chartColor = [
         'tvl' => '#006d77',
         'stem' => '#e85d04',
@@ -210,21 +212,91 @@ class ExamController extends Controller
         return response()->json($result);
     }
 
+    //old
+    // public function examStatistics()
+    // {
+    //     $result = $this->oNCAEService->getExamStatistics();
+    //     $data = array();
+    //     // dd($result->toArray());
+
+    //     foreach($result as $exams) {
+    //         array_push($data, $exams->count());
+    //     }
+    //     // dd($data);
+    //     // dd($result->toArray());
+    //     $exams = [
+    //         'labels' => array_keys($result->toArray()),
+    //         'data' => $data
+    //     ];
+    //     return view('pages.admin.exam.statistic', compact('exams'));
+    // }
+
     public function examStatistics()
     {
-        $result = $this->oNCAEService->getExamStatistics();
+        $year = Carbon::now()->format('Y');
+        $result = $this->oNCAEService->getExamStatistics($year);
         $data = array();
+        $dataSet = [];
         // dd($result->toArray());
 
-        foreach($result as $exams) {
-            array_push($data, $exams->count());
+        foreach($result as $key => $exams) {
+            $this->initializeMonths();
+            foreach($exams as $exam) {
+                $month = $exam->created_at->format('M');
+                $this->months[$month]++;
+            }
+            $data[$key] = array_values($this->months);
         }
-        // dd($data);
-        // dd($result->toArray());
+        
+        foreach ($data as $key => $strandExams) {
+            $dataSet[$key] = [
+                'label' => $key,
+                'backgroundColor' => $this->chartColor[$key],
+                'borderColor' => $this->chartColor[$key],
+                'pointBorderColor' => $this->chartColor[$key],
+                'pointBackgroundColor' => $this->chartColor[$key],
+                'pointHoverBackgroundColor' => '#fff',
+                'borderWidth' => 1,
+                'tension' => .3,
+                'data' => $strandExams
+            ];
+        }
         $exams = [
-            'labels' => array_keys($result->toArray()),
-            'data' => $data
+            'labels' => [
+                'Jan', 
+                'Feb', 
+                'Mar', 
+                'Apr', 
+                'May', 
+                'Jun', 
+                'Jul', 
+                'Aug', 
+                'Sep', 
+                'Oct', 
+                'Nov', 
+                'Dec'
+            ],
+            'data' => array_values($dataSet)
         ];
+        // dd($exams);
         return view('pages.admin.exam.statistic', compact('exams'));
+    }
+
+    public function initializeMonths()
+    {
+        $this->months = [
+            'Jan' => 0, 
+            'Feb' => 0, 
+            'Mar' => 0, 
+            'Apr' => 0, 
+            'May' => 0, 
+            'Jun' => 0, 
+            'Jul' => 0, 
+            'Aug' => 0, 
+            'Sep' => 0, 
+            'Oct' => 0, 
+            'Nov' => 0, 
+            'Dec' => 0
+        ];
     }
 }
