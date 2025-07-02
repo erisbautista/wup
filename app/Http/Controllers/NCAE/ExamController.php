@@ -212,25 +212,6 @@ class ExamController extends Controller
         return response()->json($result);
     }
 
-    //old
-    // public function examStatistics()
-    // {
-    //     $result = $this->oNCAEService->getExamStatistics();
-    //     $data = array();
-    //     // dd($result->toArray());
-
-    //     foreach($result as $exams) {
-    //         array_push($data, $exams->count());
-    //     }
-    //     // dd($data);
-    //     // dd($result->toArray());
-    //     $exams = [
-    //         'labels' => array_keys($result->toArray()),
-    //         'data' => $data
-    //     ];
-    //     return view('pages.admin.exam.statistic', compact('exams'));
-    // }
-
     public function examStatistics()
     {
         $year = Carbon::now()->format('Y');

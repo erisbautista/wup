@@ -6,7 +6,7 @@
     <div class="statistics">
         <div class="statistics-header">
             <h1>Year selection:</h1>
-            
+
         </div>
         <div class="statistics-body">
             <div class="chart-wrapper">
@@ -31,30 +31,6 @@
             let labels = exams.labels;
             let data = exams.data;
 
-            // new Chart(ctx, {
-            //     type: 'bar',
-            //     data: {
-            //     labels: labels,
-            //     datasets: [{
-            //         label: '# of users that took the pre-test',
-            //         backgroundColor: '#df8d39',
-            //         borderColor: '#df8d39',
-            //         pointBorderColor: '#df8d39',
-            //         pointBackgroundColor: '#df8d39',
-            //         pointHoverBackgroundColor: '#fff',
-            //         data: data,
-            //         borderWidth: 1,
-            //         tension: .3
-            //     }]
-            //     },
-            //     options: {
-            //         scales: {
-            //             y: {
-            //                 beginAtZero: true,
-            //             }
-            //         }
-            //     }
-            // });
             new Chart(ctx, {
             type: 'line',
             data: {
