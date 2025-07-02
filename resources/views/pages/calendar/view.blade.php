@@ -23,7 +23,7 @@
                 <a class="calendar-header-back button w-5 text-center" href="{{ route('calendar')}}">
                     back
                 </a>
-                <h1 class="calendar-header-title">SCHOOL CALENDAR</h1>
+                <h1 class="calendar-header-title">Academic Year <span id="current_year">{{now()->year}}</span> - <span id="next_year">{{now()->year+1}}</span></h1>
                 @if(auth()->user()->role_id === 3)
                 <a href="{{ route('calendar_activity')}}" class="button w-5 text-center calendar-header-new">New</a>
                 @endif
@@ -50,7 +50,7 @@
                     headerToolbar: {
                         left: "prev,next today",
                         center: "title",
-                        right: "dayGridMonth,timeGridWeek,timeGridDay",
+                        right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
                     },
                     selectable: true,
                     eventClick: function (event) {
@@ -59,6 +59,19 @@
                 });
                 calendar.addEventSource(events);
                 calendar.render();
+
+                $('body').on('click', 'button.fc-prev-button', function () {
+                    var tglCurrent = calendar.getDate();
+                    var year = tglCurrent.getFullYear();
+                    $('#current_year').text(year);
+                    $('#next_year').text(year+1);
+                });
+                $('body').on('click', 'button.fc-next-button', function () {
+                    var tglCurrent = calendar.getDate();
+                    var year = tglCurrent.getFullYear();
+                    $('#current_year').text(year);
+                    $('#next_year').text(year+1);
+                });
             });
         </script>        
     </body>
